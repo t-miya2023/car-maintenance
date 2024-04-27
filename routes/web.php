@@ -39,6 +39,10 @@ Route::middleware('auth')->prefix('car')->group(function () {
     Route::get('/', [CarController::class, 'index'])->name('car.index');
     Route::get('/show/{id}', [CarController::class, 'show'])->name('car.show');
     Route::get('/create', [CarController::class, 'create'])->name('car.create');
+    Route::post('/store', [CarController::class, 'store'])->name('car.store');
+    Route::get('/edit/{id}', [CarController::class, 'edit'])->name('car.edit');
+    Route::put('/update/{id}', [CarController::class, 'update'])->name('car.update');
+    Route::delete('/destroy/{id}', [CarController::class, 'destroy'])->name('car.destroy');
 });
 
 require __DIR__.'/auth.php';

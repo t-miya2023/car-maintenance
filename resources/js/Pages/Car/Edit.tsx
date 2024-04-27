@@ -1,12 +1,22 @@
 import { Link } from "@inertiajs/react"
 import { Box, Button, Stack, TextField } from "@mui/material"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Inertia } from "@inertiajs/inertia"; 
+import { BackButton } from "@/Components/BackButton";
+
+type Props = {
+    car : {
+        id: number,
+        car_model: string,
+        vehicle_model: string,
+        grade: string,
+        model_year: string,
+        color: string,
+    }
+}
 
 
-
-
-export default function carCreate() {
+export default function carUpdate({ car }:Props) {
     const [formData, setFormData] = useState({
         car_model: '',
         vehicle_model: '',
@@ -14,24 +24,33 @@ export default function carCreate() {
         model_year: '',
         color: '',
     });
+
+    useEffect(() => {
+        if(car){
+            setFormData({
+                car_model: car.car_model,
+                vehicle_model: car.vehicle_model,
+                grade: car.grade,
+                model_year: car.model_year,
+                color: car.color,
+            })
+        }
+    },[car])
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({...formData,[e.target.name] :e.target.value});
     }
 
-    const handleBack = () => {
-        window.history.back();
-    }
-
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        Inertia.post('/car-maintenance/public/car/store',formData);
+        Inertia.put(`/car-maintenance/public/car/update/${car.id}`,formData);
     }
 
     return (
         <div>
             <h2>create</h2>
             <Box component={"form"} onSubmit={handleSubmit}>
-                <Stack spacing={2} sx={{m:4}}>
+            <Stack spacing={2} sx={{m:4}}>
                     <TextField
                     id="car_model"
                     name="car_model"
@@ -68,9 +87,9 @@ export default function carCreate() {
                     onChange={handleChange}
                     />
                 </Stack>
-                <Button type="submit" variant="contained" color="secondary">登録</Button>
+                <Button type="submit" variant="contained" color="secondary">更新</Button>
             </Box>
-        <Button onClick={handleBack} variant="contained" color="warning">戻る</Button>
+            <BackButton />
         </div>
     )
 }

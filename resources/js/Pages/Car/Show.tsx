@@ -6,9 +6,14 @@
     import TableHead from '@mui/material/TableHead';
     import TableRow from '@mui/material/TableRow';
     import Paper from '@mui/material/Paper';
+import { BackButton } from '@/Components/BackButton';
+import { Button, Link } from '@mui/material';
+import { Inertia } from '@inertiajs/inertia';
+
 
     type Props = {
         car : {
+            id: number,
             car_model: string,
             vehicle_model: string,
             grade: string,
@@ -19,9 +24,14 @@
 
 
     export default function carShow({ car }:Props) {
+        const handleDelete = () => {
+            if(window.confirm('本当に削除しますか？')){
+                Inertia.delete(`/car-maintenance/public/car/destroy/${car.id}`);
+            }
+        }
     return (
     <TableContainer component={Paper} sx={{p:4,m:4}}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 300 }} aria-label="simple table">
         <TableHead>
             <TableRow>
             <TableCell>車種</TableCell>
@@ -64,6 +74,13 @@
             
         </TableBody>
         </Table>
+        <BackButton />
+        <Button color="secondary" variant='outlined'>
+            <Link href={`/car-maintenance/public/car/edit/${car.id}`}>
+                更新する
+            </Link>
+        </Button>
+        <Button color="error" variant="contained" onClick={handleDelete}>削除</Button>
     </TableContainer>
     );
     }

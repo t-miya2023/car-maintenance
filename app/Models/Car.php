@@ -18,4 +18,13 @@ class Car extends Model
     {
         return $this->hasMany(Maintenance::class);
     }
+
+    protected $fillable = [
+            'user_id',
+            'car_model',
+            'vehicle_model',
+            'grade',
+            'model_year',
+            'color',
+    ];
 }

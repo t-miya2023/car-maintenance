@@ -33,7 +33,19 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'car_model' => 'required|max:50',
+            'vehicle_model' => 'nullable',
+            'grade' => 'nullable',
+            'model_year' => 'nullable',
+            'color' => 'nullable'
+        ]);
+
+        $data = $request->all();
+        $data['user_id'] = auth()->id();
+        Car::create($data);
+
+        return redirect()->route('car.index');
     }
 
     /**
@@ -53,7 +65,11 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $car = Car::find($id);
+
+        return Inertia::render('Car/Edit', [
+            'car' => $car
+        ]);
     }
 
     /**
@@ -61,7 +77,18 @@ class CarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'car_model' => 'required|max:50',
+            'vehicle_model' => 'nullable',
+            'grade' => 'nullable',
+            'model_year' => 'nullable',
+            'color' => 'nullable'
+        ]);
+
+        $car = Car::find($id);
+        $car->update($data);
+
+        return redirect()->route('car.index');
     }
 
     /**
@@ -69,6 +96,9 @@ class CarController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $car = Car::find($id);
+        $car->delete();
+
+        return redirect()->route('car.index')->with('success', '削除に成功しました');
     }
 }
