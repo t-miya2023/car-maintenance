@@ -12,6 +12,7 @@ class MaintenancesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\Maintenance::factory(10)->create();
+
     }
 }
