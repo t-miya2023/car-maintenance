@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react"
 import { Button } from "@mui/material"
+import SideBar from "@/Layouts/AppLayout"
 
 type Props = {
     cars: {
