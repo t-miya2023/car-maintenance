@@ -10,7 +10,7 @@ export const Home = () => {
             </Box>
             {/* 下 */}
             <Box>
-                
+                <MaintenanceList />
             </Box>
         </Box>
     )
