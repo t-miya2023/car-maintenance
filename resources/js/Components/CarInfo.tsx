@@ -1,9 +1,9 @@
 import { Box, Slider, Typography } from "@mui/material"
 
-export const CarSlider = () => {
+export const CarInfo = () => {
     return (
 
-            <div>CarSlider</div>
+            <div>INFO</div>
 
     )
 }
