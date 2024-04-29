@@ -1,5 +1,17 @@
+import { Box } from "@mui/material"
+
 export const Home = () => {
     return (
-        <div>HOMEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+        <Box>
+            {/* 上 */}
+            <Box>
+                <CarSlider />
+                <CarInfo />
+            </Box>
+            {/* 下 */}
+            <Box>
+                
+            </Box>
+        </Box>
     )
 }
