@@ -22,7 +22,7 @@ export const SideBar = (props:Props) => {
     const {drawerWidth, mobileOpen, handleDrawerTransitionEnd, handleDrawerClose} = props;
     // メニューのリスト
     const MenuItems:MenuItem[] = [
-        {text: "HOME", path: "/", icon: DirectionsCarIcon},
+        {text: "HOME", path: "/home", icon: DirectionsCarIcon},
         {text: "REPORT", path: "/report", icon: SignalCellularAltIcon},
     ]
     const baseLinkStyle:CSSProperties = {

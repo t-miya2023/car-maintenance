@@ -45,7 +45,6 @@ class CarController extends Controller
         $data['user_id'] = auth()->id();
         Car::create($data);
 
-        return redirect()->route('car.index');
     }
 
     /**

@@ -12,7 +12,7 @@ export default function Dashboard({ auth }: PageProps) {
             <Router>
                 <Routes>
                     <Route path="/" element={<AppLayout user={auth.user} />}>
-                        <Route index element={<Home />} />
+                        <Route path='/home' element={<Home />} />
                         <Route path="/report" element={<Report />} />
                         <Route path="*" element={<Page404 />} />
                     </Route>
