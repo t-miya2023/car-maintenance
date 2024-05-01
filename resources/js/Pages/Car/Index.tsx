@@ -9,7 +9,8 @@ type Props = {
     }[]
 }
 
-export default function carIndex({ cars }: Props) {
+export default function CarIndex({ cars }: Props) {
+    
     return (
         <div>
             {cars.map((car,index) => (

@@ -6,9 +6,11 @@ import { Report } from './Report';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Page404 } from './Page404';
 import AppLayout from '@/Layouts/AppLayout';
+import { CarProvider } from '@/Providers/CarProvider';
 
 export default function Dashboard({ auth }: PageProps) {
     return (
+        <CarProvider>
             <Router>
                 <Routes>
                     <Route path="/" element={<AppLayout user={auth.user} />}>
@@ -18,7 +20,7 @@ export default function Dashboard({ auth }: PageProps) {
                     </Route>
                 </Routes>
             </Router>
-
+        </CarProvider>
         
     );
 }

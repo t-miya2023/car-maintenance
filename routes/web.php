@@ -25,6 +25,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+// 
 
 Route::get('/home', function () {
     return Inertia::render('Dashboard');
@@ -38,7 +39,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->prefix('car')->group(function () {
     Route::get('/', [CarController::class, 'index'])->name('car.index');
     Route::get('/show/{id}', [CarController::class, 'show'])->name('car.show');
-    Route::get('/create', [CarController::class, 'create'])->name('car.create');
     Route::post('/store', [CarController::class, 'store'])->name('car.store');
     Route::get('/edit/{id}', [CarController::class, 'edit'])->name('car.edit');
     Route::put('/update/{id}', [CarController::class, 'update'])->name('car.update');
