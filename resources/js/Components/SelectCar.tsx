@@ -1,22 +1,44 @@
 import { FormControl, MenuItem, Select } from "@mui/material"
 import InputLabel from "./InputLabel"
-import CarIndex from "@/Pages/Car/Index"
+import { usePage } from "@inertiajs/react";
+import { Cars } from "@/types/cars";
+import { Controller, useForm } from "react-hook-form";
+import { useState } from "react";
+
+interface PageProps {
+    cars: Cars[];
+    [key: string]: any;  // インデックスシグネチャを追加
+}
 
 export const SelectCar = () => {
+    // Inertiaからデータを取得
+    const { cars } =usePage<PageProps>().props;
+    console.log(cars);
+
+    const { control } = useForm();
+
+    const [selectCar, setSelectCar ] = useState(cars[0].car_model);
+
     return (
-        <FormControl fullWidth >
-            <InputLabel id="demo-simple-select-label">車種選択</InputLabel>
-            <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Age"
-                size="small"
-                sx={{backgroundColor:'white', width:'300px'}}
-            >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-        </FormControl>
+        <Controller
+        name="select"
+        control={control}
+        defaultValue={selectCar}
+        render={({ field }) => (
+            <FormControl fullWidth >
+                <InputLabel>車種選択</InputLabel>
+                <Select
+                    {...field}
+                    value={field.value}
+                    size="small"
+                    sx={{backgroundColor:'white', width:'300px'}}
+                >
+                    {cars.map(car => (
+                        <MenuItem key={car.id} value={car.car_model || ''}>{car.car_model || '未登録'}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+        )}
+        />
     )
 }

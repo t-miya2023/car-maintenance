@@ -21,18 +21,18 @@ export default function CreateNewCar() {
     
 
     return (
-        <div>
-                <Button onClick={toggleDrawer(true)} variant="outlined">
-                    <AddIcon />管理する車を追加する
-                </Button>
-                <Drawer
-                    open={open}
-                    onClose={toggleDrawer(false)}
-                    anchor='bottom'
-                >
-                    {DrawerForm}
-                </Drawer>
-        </div>
+        <Box mb={3}>
+            <Button onClick={toggleDrawer(true)} variant="outlined">
+                <AddIcon />管理する車を追加する
+            </Button>
+            <Drawer
+                open={open}
+                onClose={toggleDrawer(false)}
+                anchor='bottom'
+            >
+                {DrawerForm}
+            </Drawer>
+        </Box>
         
     );
 }

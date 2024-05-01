@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { PageProps } from '@/types';
+import { PageProps } from '@/types/index';
 import { Route,  Routes } from 'react-router-dom';
 import { Home } from './Home';
 import { Report } from './Report';
@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Page404 } from './Page404';
 import AppLayout from '@/Layouts/AppLayout';
 import { CarProvider } from '@/Providers/CarProvider';
+import { Cars } from '@/types/cars';
 
 export default function Dashboard({ auth }: PageProps) {
     return (

@@ -15,7 +15,7 @@ class CarController extends Controller
         $userId = Auth()->user()->id;
         $cars = Car::where('user_id', $userId)->get();
 
-        return Inertia::render('Car/Index', [
+        return Inertia::render('Dashboard', [
             'cars' => $cars
         ]);
     }

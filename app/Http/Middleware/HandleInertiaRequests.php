@@ -4,6 +4,10 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Inertia\Inertia;
+use App\Models\Car;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -34,12 +38,20 @@ class HandleInertiaRequests extends Middleware
         $content = file_get_contents($json);
         $translations = json_decode($content, true);
 
+        if (Auth::check()) {
+            $userId = Auth()->user()->id;
+            $cars = Car::where('user_id', $userId)->get();
+        }else{
+            $cars = [];
+        };
         return [
             ...parent::share($request),
             'translations' => $translations,
             'auth' => [
                 'user' => $request->user(),
             ],
+            'cars' => $cars,
         ];
+        
     }
 }
