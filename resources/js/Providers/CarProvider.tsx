@@ -1,8 +1,11 @@
-import { Cars } from "@/types/cars";
-import { usePage } from "@inertiajs/react";
-import { createContext } from "react";
+import { Dispatch, SetStateAction, createContext, useState } from "react";
 
-export const CarContext = createContext({});
+interface CarContextType {
+    selectCar: string; // または適切な型
+    setSelectCar: Dispatch<SetStateAction<string>> // または適切な型
+  }
+
+export const CarContext = createContext<CarContextType>({} as CarContextType);
 
 type Props = {
     children:React.ReactNode;
@@ -10,9 +13,11 @@ type Props = {
 
 export const CarProvider = (props:Props) => {
     const { children } = props;
-    const { cars } = usePage().props;
+
+    const [selectCar, setSelectCar ] = useState('');
+
     return(
-        <CarContext.Provider value={{ cars }}> 
+        <CarContext.Provider value={{ selectCar, setSelectCar }}> 
             { children }
         </CarContext.Provider>
     )
