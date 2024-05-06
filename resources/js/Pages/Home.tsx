@@ -1,4 +1,4 @@
-import { CarInfo } from "@/Components/CarInfo"
+import  CarInfo  from "@/Components/CarInfo"
 import { CarSlider } from "@/Components/CarSlider"
 import CreateNewCar from "@/Components/CreateNewCar"
 import { MaintenanceList } from "@/Components/MantenanceList"
@@ -13,7 +13,7 @@ export const Home = () => {
                 <SelectCar />
             </Box>
             {/* 上 */}
-            <Box sx={{display:"flex"}} justifyContent={"space-between"}>
+            <Box sx={{display:"flex", height:"200px"}} justifyContent={"space-between"}>
                 <CarSlider />
                 <CarInfo />
             </Box>

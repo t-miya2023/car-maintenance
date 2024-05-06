@@ -21,11 +21,11 @@ export const SelectCar = () => {
     // 初期値を入れる（配列の先頭の車種）
     useEffect(() => {
         if(cars && cars.length > 0){
-            const defalutCar = cars[0].car_model;
-            setSelectCar(defalutCar);
-            setValue('select',defalutCar);
+            const defalutCarId = cars[0].id; //先頭の車種IDを取得
+            setSelectCar(defalutCarId);
+            setValue('select',defalutCarId);
         }else{
-            setSelectCar('');  // 初期値を空文字列に設定して、常に制御された状態を保持
+            setSelectCar(null);  // 初期値を空文字列に設定して、常に制御された状態を保持
             setValue('select', '選択可能な車種がありません');// 車種未登録の場合メッセージを表示
         }
     }, [cars,setSelectCar,setValue]);
@@ -37,7 +37,7 @@ export const SelectCar = () => {
         name="select"
         control={control}
         render={({ field }) => (
-            <FormControl fullWidth >
+            <FormControl fullWidth sx={{mb:4}}>
                 <InputLabel>車種選択</InputLabel>
                 <Select
                     {...field}
@@ -45,13 +45,20 @@ export const SelectCar = () => {
                     size="small"
                     sx={{backgroundColor:'white', width:'300px'}}
                     onChange={(event) => {
-                        field.onChange(event); // react-hook-form の値を更新
-                        setSelectCar(event.target.value); // CarContext の値を更新
+                        const selectedCarId = event.target.value;
+                        if(cars.some(car => car.id === selectedCarId)){
+                            field.onChange(event); // react-hook-form の値を更新
+                            setSelectCar(selectedCarId); // CarContext の値を更新
+                        }else{
+                            setSelectCar(null);
+                        }
                     }}
                 >
                 {cars && cars.length > 0 ? (
                     cars.map(car => (
-                        <MenuItem key={car.id} value={car.car_model || ''}>{car.car_model || '未登録'}</MenuItem>
+                        <MenuItem key={car.id} value={car.id}>
+                            {car.car_model || '未登録'}
+                        </MenuItem>
                     ))
                 ) : (
                     <MenuItem value='選択可能な車種がありません' disabled>選択可能な車種がありません</MenuItem>
