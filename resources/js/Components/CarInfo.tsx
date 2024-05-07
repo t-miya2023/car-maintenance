@@ -9,7 +9,10 @@ import Paper from '@mui/material/Paper';
 import { Cars } from '@/types/cars';
 import { usePage } from '@inertiajs/react';
 import { CarContext } from '@/Providers/CarProvider';
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
+import { Inertia } from '@inertiajs/inertia';
+import { EditCarButton } from './EditCarButton';
+import { DeleteCarButton } from './DeleteCarButton';
 
 
 interface PageProps {
@@ -25,6 +28,12 @@ export default function CarInfo() {
     const { selectCar } = useContext(CarContext);
     //IDから対象の車種情報を取得
     const currentCar = cars.find(car => car.id === selectCar); 
+    // 削除関数
+    const handleCarDelete = () => {
+        if(currentCar && window.confirm('本当に削除しますか？')){
+            Inertia.delete(`/car/destroy/${currentCar.id}`);
+        }
+    }
 
     return (
         <TableContainer component={Paper}>
@@ -67,6 +76,16 @@ export default function CarInfo() {
                         </TableCell>
                         <TableCell component="td" scope="row">
                             {currentCar?.color}
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        {/* 編集 */}
+                        <TableCell component="td" scope="row">
+                            <EditCarButton />
+                        </TableCell>
+                        {/* 削除 */}
+                        <TableCell component="td" scope="row">
+                            <DeleteCarButton />
                         </TableCell>
                     </TableRow>
                 </TableBody>

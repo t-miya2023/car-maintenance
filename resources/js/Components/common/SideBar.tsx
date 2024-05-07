@@ -43,7 +43,7 @@ export const SideBar = (props:Props) => {
         <List>
             {MenuItems.map((item, index) => (
             <NavLink key={index} to={item.path} style={({isActive}) => {
-                console.log(item.text + isActive);
+                // console.log(item.text + isActive);
                 return {
                     ...baseLinkStyle,
                     ...(isActive ? activeLinkStyle : {})

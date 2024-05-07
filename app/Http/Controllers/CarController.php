@@ -52,17 +52,6 @@ class CarController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $car = Car::find($id);
-
-        return Inertia::render('Car/Edit', [
-            'car' => $car
-        ]);
-    }
 
     /**
      * Update the specified resource in storage.
@@ -80,7 +69,7 @@ class CarController extends Controller
         $car = Car::find($id);
         $car->update($data);
 
-        return redirect()->route('car.index');
+        return redirect()->back();
     }
 
     /**
@@ -91,6 +80,6 @@ class CarController extends Controller
         $car = Car::find($id);
         $car->delete();
 
-        return redirect()->route('car.index')->with('success', '削除に成功しました');
+        return redirect()->back()->with('success', '削除に成功しました');
     }
 }
