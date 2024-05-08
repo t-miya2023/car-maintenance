@@ -2,7 +2,7 @@ import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
 import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/react";
-import { Box, Button, Typography } from "@mui/material"
+import { Box, Button, Modal, Typography } from "@mui/material"
 import { useContext } from "react";
 
 const style = {
@@ -15,10 +15,11 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-  };
+};
 
 type Props = {
-    handleClose: () => void;
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
@@ -27,7 +28,8 @@ interface PageProps {
     [key: string]: any;  // インデックスシグネチャを追加
 }
 
-export const DeleteCarModal = ({handleClose}: Props) => {
+export const DeleteCarModal = (props: Props) => {
+    const { open, setOpen } = props;
     // Inertiaからデータを取得
     const { cars } =usePage<PageProps>().props;
     // グローバルステートから取得
@@ -40,8 +42,13 @@ export const DeleteCarModal = ({handleClose}: Props) => {
             Inertia.delete(`/car/destroy/${currentCar.id}`);
         }
     }
+    // モーダルを閉じる関数
+    const handleClose = () => setOpen(false);
 
     return (
+        <Modal
+        open={open}
+        onClose={handleClose}>
         <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
             本当に削除しますか？
@@ -54,5 +61,6 @@ export const DeleteCarModal = ({handleClose}: Props) => {
                 <Button onClick={handleClose} variant="outlined" color="secondary">キャンセル</Button>
             </Box>
         </Box>
+        </Modal>
     )
 }
