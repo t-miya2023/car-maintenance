@@ -1,5 +1,5 @@
 import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
-import { Box, Button, TextField } from "@mui/material"
+import { Box, Button, Input, TextField } from "@mui/material"
 import { Controller, useForm } from "react-hook-form"
 
 type ItemName = "grade" | "model_year" | "color" | "img" | "car_model" | "vehicle_model";
@@ -53,6 +53,14 @@ export const CreateNewCarForm = () => {
                     name={item.name}
                     control={control}
                     render={({field}) => (
+                        item.type === 'file' ? (
+                            <Input
+                                {...field}
+                                type={item.type}
+                                fullWidth
+                                sx={{ marginBottom: 4 ,width: "100%"}}
+                            />
+                        ):(
                         <TextField
                             {...field}
                             label={item.label}
@@ -63,6 +71,7 @@ export const CreateNewCarForm = () => {
                             shrink: true,
                             }}
                         />
+                        )
                     )}
                 />
             ))}

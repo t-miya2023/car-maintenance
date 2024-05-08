@@ -31,11 +31,20 @@ class CarController extends Controller
             'vehicle_model' => 'nullable',
             'grade' => 'nullable',
             'model_year' => 'nullable',
-            'color' => 'nullable'
+            'color' => 'nullable',
+            'img' => 'nullable',
         ]);
+
+
 
         $data = $request->all();
         $data['user_id'] = auth()->id();
+
+        if ($request->hasFile('img')) {
+            $image_path = $request->file('img')->store('public/car_img/');
+            $data['img'] = basename($image_path);
+        }
+        dd($request->hasFile('img'));
         Car::create($data);
 
     }
@@ -63,7 +72,8 @@ class CarController extends Controller
             'vehicle_model' => 'nullable',
             'grade' => 'nullable',
             'model_year' => 'nullable',
-            'color' => 'nullable'
+            'color' => 'nullable',
+            'img' => 'nullable',
         ]);
 
         $car = Car::find($id);

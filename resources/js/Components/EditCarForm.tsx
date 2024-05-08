@@ -43,7 +43,7 @@ export const EditCarForm = () => {
             grade: currentCar?.grade || '',
             model_year: currentCar?.model_year || '',
             color: currentCar?.color || '',
-            img:currentCar?.img || '',
+            img: '',
         }
     })
     // 更新用関数
