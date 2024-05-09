@@ -21,7 +21,7 @@ const items:ItemType[] = [
 
 
 
-export const CreateNewCarForm = () => {
+export const MaitenanceAddForm = () => {
     const { control, handleSubmit  } = useForm({
         defaultValues:{
             car_model: '',

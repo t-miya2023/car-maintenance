@@ -44,7 +44,7 @@ class CarController extends Controller
             $image_path = $request->file('img')->store('public/car_img/');
             $data['img'] = basename($image_path);
         }
-        dd($request->img);
+        // dd($request->img);
         Car::create($data);
 
     }
