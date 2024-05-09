@@ -1,6 +1,7 @@
 import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { Box, Button, Input, TextField } from "@mui/material"
 import { Controller, useForm } from "react-hook-form"
+import { useForm } from '@inertiajs/react'
 
 type ItemName = "grade" | "model_year" | "color" | "img" | "car_model" | "vehicle_model";
 
@@ -22,7 +23,7 @@ const items:ItemType[] = [
 
 
 export const CreateNewCarForm = () => {
-    const { control, handleSubmit } = useForm({
+    const { control, handleSubmit, setData } = useForm({
         defaultValues:{
             car_model: '',
             vehicle_model: '',
@@ -33,9 +34,15 @@ export const CreateNewCarForm = () => {
         }
     })
     const onSubmit = (data: Record<string, FormDataConvertible>) => {
+        console.log(data);
         Inertia.post('/car/store',data,{
-            preserveScroll: true
+            preserveScroll: true,
+            forceFormData: true,
         });
+    }
+
+    const handleChangeImage = (e) => {
+        setData
     }
     return (
         <Box component={"form"} 
@@ -56,9 +63,11 @@ export const CreateNewCarForm = () => {
                         item.type === 'file' ? (
                             <Input
                                 {...field}
-                                type={item.type}
+                                type="file"
                                 fullWidth
+                                aria-label="画像"
                                 sx={{ marginBottom: 4 ,width: "100%"}}
+                                onChange={handleChangeImage}
                             />
                         ):(
                         <TextField
