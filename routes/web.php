@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\MaintenanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +38,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::middleware('auth')->prefix('car')->group(function () {
-    Route::get('/', [CarController::class, 'index'])->name('car.index');
-    Route::get('/show/{id}', [CarController::class, 'show'])->name('car.show');
     Route::post('/store', [CarController::class, 'store'])->name('car.store');
-    Route::get('/edit/{id}', [CarController::class, 'edit'])->name('car.edit');
     Route::put('/update/{id}', [CarController::class, 'update'])->name('car.update');
     Route::delete('/destroy/{id}', [CarController::class, 'destroy'])->name('car.destroy');
+});
+
+Route::middleware('auth')->prefix('maintenance')->group(function () {
+    Route::post('/store', [MaintenanceController::class, 'store'])->name('maintenance.store');
+    Route::put('/update/{id}', [MaintenanceController::class, 'update'])->name('maintenance.update');
+    Route::delete('/destroy/{id}', [MaintenanceController::class, 'destroy'])->name('maintenance.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -1,11 +1,24 @@
-import * as React from 'react';
+import { useContext } from "react";
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { usePage } from '@inertiajs/react';
+import { Cars } from '@/types/cars';
+import { CarContext } from '@/Providers/CarProvider';
+import { Maintenaces } from "@/types/maintenaces";
+
+
+interface PageProps {
+  cars: Cars[];
+  maintenances: Maintenaces[];
+  [key: string]: any;  // インデックスシグネチャを追加
+}
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: '点検内容', width: 300 },
   { field: 'firstName', headerName: '点検日時', width: 130 },
   { field: 'lastName', headerName: '次回点検日時', width: 130 },
 ];
+
+
 
 const rows = [
   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
@@ -20,6 +33,17 @@ const rows = [
 ];
 
 export default function MaintenanceList() {
+
+      // Inertiaからデータを取得
+      const { cars, maintenances } =usePage<PageProps>().props;
+      // グローバルステートから取得
+      const { selectCar } = useContext(CarContext);
+      //selectCarから選択中の車のIDを取得
+      const currentCarId = cars.find(car => car.id === selectCar)?.id; 
+      // 選択中の車のメンテナンス情報を絞りこみ　空の可能性もあるためから配列を置く
+      const maintenanceArray = (maintenances || []).filter(maintenance => maintenance.car_id === currentCarId)
+      console.log(maintenanceArray);
+      
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid

@@ -7,18 +7,6 @@ use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $userId = Auth()->user()->id;
-        $cars = Car::where('user_id', $userId)->get();
-
-        return Inertia::render('Dashboard', [
-            'cars' => $cars
-        ]);
-    }
 
 
     /**
@@ -47,20 +35,8 @@ class CarController extends Controller
         // dd($request->img);
         Car::create($data);
 
+        return redirect()->back();
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $car = Car::find($id);
-
-        return Inertia::render('Car/Show', [
-            'car' => $car
-        ]);
-    }
-
 
     /**
      * Update the specified resource in storage.

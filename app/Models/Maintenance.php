@@ -13,4 +13,16 @@ class Maintenance extends Model
     {
         return $this->belongsTo(Car::class);
     }
+
+    protected $fillable = [
+        'car_id',
+        'maintenance_details',
+        'date',
+        'next_time',
+        'amount',
+        'total_mileage',
+        'inspection_type',
+        'shop',
+        'remarks',
+];
 }
