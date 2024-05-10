@@ -24,7 +24,7 @@ export const MaintenanceAddBotton = () => {
             <Drawer
                 open={open}
                 onClose={toggleDrawer(false)}
-                anchor='right'
+                anchor='left'
             >
                 {DrawerForm}
             </Drawer>

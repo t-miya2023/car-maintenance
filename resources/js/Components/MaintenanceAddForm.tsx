@@ -2,7 +2,7 @@ import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { Box, Button, Input, TextField } from "@mui/material"
 import { Controller, useForm } from "react-hook-form"
 
-type ItemName = "grade" | "model_year" | "color" | "img" | "car_model" | "vehicle_model";
+type ItemName = "maintenance_details" | "date" | "next_time" | "amount" | "total_mileage" | "shop"| "remarks";
 
 type ItemType = {
     name: ItemName;
@@ -11,9 +11,9 @@ type ItemType = {
 }
 
 const items:ItemType[] = [
-    { name: "car_model", label: "車種", type: "text" },
-    { name: "vehicle_model", label: "型式", type: "text" },
-    { name: "grade", label: "グレード", type: "text" },
+    { name: "maintenance_details", label: "車種", type: "text" },
+    { name: "date", label: "型式", type: "text" },
+    { name: "next_time", label: "グレード", type: "text" },
     { name: "model_year", label: "年式", type: "text" },
     { name: "color", label: "色", type: "text" },
     { name: "img", label: "画像", type: "file" }
