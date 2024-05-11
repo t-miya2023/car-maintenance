@@ -35,7 +35,6 @@ class CarController extends Controller
         // dd($request->img);
         Car::create($data);
 
-        return redirect()->back();
     }
 
     /**

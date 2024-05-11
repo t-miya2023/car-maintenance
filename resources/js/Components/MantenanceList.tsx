@@ -13,9 +13,9 @@ interface PageProps {
 }
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: '点検内容', width: 300 },
-  { field: 'firstName', headerName: '点検日時', width: 130 },
-  { field: 'lastName', headerName: '次回点検日時', width: 130 },
+  { field: 'maintenance_details', headerName: '点検内容', width: 300 },
+  { field: 'date', headerName: '点検日時', width: 130 },
+  { field: 'next_time', headerName: '次回点検日時', width: 130 },
 ];
 
 
@@ -47,7 +47,13 @@ export default function MaintenanceList() {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={rows}
+        rows={maintenanceArray.map(data => ({
+          id: data.id,
+          maintenance_details: data.maintenance_details,
+          date: data.date,
+          next_time: data.next_time,
+        })
+        )}
         columns={columns}
         initialState={{
           pagination: {

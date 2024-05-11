@@ -16,6 +16,7 @@ class MaintenanceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'car_id' => 'required',
             'maintenance_details' => 'required|max:50',
             'date' => 'required',
             'next_time' => 'nullable',
@@ -26,12 +27,9 @@ class MaintenanceController extends Controller
             'remarks' => 'nullable',
         ]);
 
-
         $data = $request->all();
-        dd($data);
         Maintenance::create($data);
 
-        return redirect()->back();
     }
 
     /**

@@ -41,13 +41,26 @@ export const MaitenanceAddForm = () => {
     //selectCarから選択中の車のIDを取得
     const currentCarId = cars.find(car => car.id === selectCar)?.id; 
     
-    const { control, handleSubmit  } = useForm();
+    const { control, handleSubmit  } = useForm({
+        defaultValues:{
+            car_id: currentCarId,
+            maintenance_details: '',
+            date: '',
+            next_time: '',
+            amount: '',
+            total_mileage: '',
+            inspection_type:'',
+            shop: '',
+            remarks:'',
+        }
+    })
 console.log();
 
     const onSubmit = (data: Record<string, FormDataConvertible>) => {
         Inertia.post('/maintenance/store',data,{
             preserveScroll: true,
         });
+        console.log(data);
     }
 
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Inertia\Inertia;
 use App\Models\Car;
+use App\Models\Maintenance;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -44,6 +45,15 @@ class HandleInertiaRequests extends Middleware
         }else{
             $cars = [];
         };
+
+        if(isset($cars)){
+            $carIds = $cars->pluck('id')->toArray();
+            $maintenances = Maintenance::whereIn('car_id',$carIds)->get();
+        }else{
+            $maintenances = [];
+        }
+
+
         return [
             ...parent::share($request),
             'translations' => $translations,
@@ -51,6 +61,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'cars' => $cars,
+            'maintenances' => $maintenances,
         ];
         
     }
