@@ -46,7 +46,7 @@ class HandleInertiaRequests extends Middleware
             $cars = [];
         };
 
-        if(isset($cars)){
+        if($cars){
             $carIds = $cars->pluck('id')->toArray();
             $maintenances = Maintenance::whereIn('car_id',$carIds)->get();
         }else{
