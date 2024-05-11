@@ -33,7 +33,6 @@ export const CreateNewCarForm = () => {
         }
     })
     const onSubmit = (data: Record<string, FormDataConvertible>) => {
-        console.log(data);
         Inertia.post('/car/store',data,{
             preserveScroll: true,
             forceFormData: true,
