@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class CarController extends Controller
 {
@@ -31,8 +33,11 @@ class CarController extends Controller
         if ($request->hasFile('img')) {
             $image_path = $request->file('img')->store('public/car_img/');
             $data['img'] = basename($image_path);
+        } else {
+            $error = $request->file('img')->getError();
+            // エラーメッセージをログに記録または表示
         }
-        dd($data);
+        // dd($request->hasFile('img'));
         Car::create($data);
 
     }
