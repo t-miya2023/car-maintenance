@@ -33,10 +33,7 @@ class CarController extends Controller
         if ($request->hasFile('img')) {
             $image_path = $request->file('img')->store('public/car_img/');
             $data['img'] = basename($image_path);
-        } else {
-            $error = $request->file('img')->getError();
-            // エラーメッセージをログに記録または表示
-        }
+        } 
         // dd($request->hasFile('img'));
         Car::create($data);
 
@@ -57,9 +54,25 @@ class CarController extends Controller
         ]);
 
         $car = Car::find($id);
-        $car->update($data);
 
-        return redirect()->back();
+        if (!$car) {
+            return response()->json(['error' => 'Car not found'], 404);
+        }
+    
+        if ($request->hasFile('img')) {
+            $image_path = $request->file('img')->store('public/car_img/');
+            $data['img'] = basename($image_path);
+        }
+    
+        try {
+            $car->update($data);
+        } catch (\Exception $e) {
+            \Log::error('Update failed:', ['error' => $e->getMessage()]);
+            return response()->json(['error' => 'Update failed: ' . $e->getMessage()], 409);
+        }
+    
+        return response()->json(['success' => 'Car updated successfully']);
+
     }
 
     /**

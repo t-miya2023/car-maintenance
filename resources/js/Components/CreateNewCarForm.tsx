@@ -43,8 +43,10 @@ export const CreateNewCarForm = () => {
         for(const key in data){
             if(key === 'img' && selectedFile ){
                 formData.append(key,selectedFile);
+            }else if(data[key] !== null && data[key] !== undefined){
+                formData.append(key,data[key] as string | Blob);
             }else{
-                formData.append(key,data[key]);
+                formData.append(key,'');
             }
         }
         console.log(formData);

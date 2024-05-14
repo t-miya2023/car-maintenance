@@ -14,7 +14,7 @@ export const Home = () => {
                 <SelectCar />
             </Box>
             {/* 上 */}
-            <Box sx={{display:"flex", height:"200px"}} justifyContent={"space-between"} mb={5}>
+            <Box sx={{display:"flex", height:"200px"}} justifyContent={"space-between"} mb={5} >
                 <CarSlider />
                 <CarInfo />
             </Box>

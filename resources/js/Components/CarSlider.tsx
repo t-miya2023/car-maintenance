@@ -27,11 +27,11 @@ export default function CarSlider(){
     //IDから対象の車種情報を取得
     const currentCar = cars.find(car => car.id === selectCar); 
     // 対象車の画像を配列で取得
-    const carImages = currentCar ? currentCar.img : [];
-    console.log(currentCar);
+    const carImages: string[] = currentCar && currentCar.img ? [currentCar.img] : [];
+
     if(!currentCar){
         return (
-            <Box flex={1}>
+            <Box flex={1} mr={2}>
                 <Box sx={{mx: 'auto', height: 268, width: 800,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
                     <Box 
                         sx={{
@@ -48,7 +48,7 @@ export default function CarSlider(){
         )
     }else{
         return(
-            <Box flex={1}>
+            <Box flex={1} mr={2}>
             <Carousel
     
                 NextIcon={<ArrowForwardIosSharpIcon/>} //矢印アイコンを別のアイコンに変更
@@ -93,33 +93,32 @@ export default function CarSlider(){
                     borderRadius : 0,//0にすると四角になる．
                 },
             }}>
-                {carImages ? carImages.map(img,index => (
-                                <Box sx={{mx: 'auto', height: 268, width: 800,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
-                                <Box 
-                                    sx={{
-                                    height: "auto",
-                                    width: { xs: '100%', sm: '80%', md: '60%', lg: '450px' }, 
-                                    mx: 'auto'
-                                    }}
-                                    key={index}
-                                    component="img"
-                                    src={"strage/car_img/".img}
-                                    alt={`車 ${index + 1}`}
-                                ></Box>
-                            </Box>
+                {carImages.length > 0 ? carImages.map((img: string,index: number) => (
+                    <Box key={index} sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
+                        <Box 
+                            sx={{
+                            height: "auto",
+                            width: { xs: '100%', sm: '80%', md: '60%', lg: '450px' }, 
+                            mx: 'auto'
+                            }}
+                            component="img"
+                            src={`storage/car_img/${img}`}
+                            alt={`車 ${index + 1}`}
+                        ></Box>
+                    </Box>
                 )):(
-                    <Box sx={{mx: 'auto', height: 268, width: 800,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
-                    <Box 
-                        sx={{
-                        height: "auto",
-                        width: { xs: '100%', sm: '80%', md: '60%', lg: '450px' }, 
-                        mx: 'auto'
-                        }}
-                        component="img"
-                        src="/images/no_images.png"
-                        alt="車"
-                    ></Box>
-                </Box>
+                    <Box sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
+                        <Box 
+                            sx={{
+                            height: "auto",
+                            width: { xs: '100%', sm: '80%', md: '60%', lg: '450px' }, 
+                            mx: 'auto'
+                            }}
+                            component="img"
+                            src="/images/no_images.png"
+                            alt="車"
+                        ></Box>
+                    </Box>
                 )}
             </Carousel>
         </Box>
