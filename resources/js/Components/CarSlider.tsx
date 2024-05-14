@@ -116,36 +116,11 @@ export default function CarSlider(){
                         mx: 'auto'
                         }}
                         component="img"
-                        src="/images/test.jpg"
+                        src="/images/no_images.png"
                         alt="車"
                     ></Box>
                 </Box>
                 )}
-            <Box sx={{mx: 'auto', height: 268, width: 800,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
-                <Box 
-                    sx={{
-                    height: "auto",
-                    width: { xs: '100%', sm: '80%', md: '60%', lg: '450px' }, 
-                    mx: 'auto'
-                    }}
-                    component="img"
-                    src="/images/test.jpg"
-                    alt="車"
-                ></Box>
-            </Box>
-            <Box sx={{mx: 'auto', height: 268, width: 800,backgroundColor:bgColor,overflow: 'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
-                <Box 
-                    sx={{
-                    height: "auto",
-                    width: { xs: '100%', sm: '80%', md: '60%', lg: '450px' }, 
-                    mx: 'auto',
-                    }}
-                    component="img"
-                    src="/images/test2.jpg"
-                    alt="車"
-                ></Box>
-            </Box>
-    
             </Carousel>
         </Box>
         )

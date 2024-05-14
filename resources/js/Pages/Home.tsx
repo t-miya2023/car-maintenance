@@ -1,5 +1,5 @@
 import  CarInfo  from "@/Components/CarInfo"
-import { CarSlider } from "@/Components/CarSlider"
+import CarSlider from "@/Components/CarSlider"
 import CreateNewCar from "@/Components/CreateNewCar"
 import { MaintenanceAddBotton } from "@/Components/MaintenanceAddButton"
 import  MaintenanceList  from "@/Components/MantenanceList"
