@@ -32,7 +32,7 @@ export default function CarSlider(){
     if(!currentCar){
         return (
             <Box flex={1} mr={2}>
-                <Box sx={{mx: 'auto', height: 268, width: 800,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
+                <Box sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
                     <Box 
                         sx={{
                         height: "auto",

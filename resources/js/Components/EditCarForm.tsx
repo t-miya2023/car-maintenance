@@ -2,8 +2,8 @@ import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
 import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { usePage } from "@inertiajs/react";
-import { Box, Button, Input, TextField } from "@mui/material"
-import { useContext, useState } from "react";
+import { Box, Button, TextField } from "@mui/material"
+import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form"
 
 type ItemName = "grade" | "model_year" | "color" | "img" | "car_model" | "vehicle_model";
@@ -46,32 +46,10 @@ export const EditCarForm = () => {
             img: '',
         }
     })
-
-    const [ selectedFile, setSelectedFile ] = useState<File | null>(null);
-
     // 更新用関数
     const onSubmit = (data: Record<string, FormDataConvertible>) => {
-
-        const formData = new FormData();
-        for(const key in data){
-            if(key === 'img' && selectedFile ){
-                formData.append(key,selectedFile);
-            }else if(data[key] !== null && data[key] !== undefined){
-                formData.append(key,data[key] as string | Blob);
-            }else{
-                formData.append(key,'');
-            }
-        }
-
-        Inertia.put(`/car/update/${currentCar?.id}`,formData,{
-            preserveScroll: true,
-            forceFormData: true,
-            onSuccess: () => {
-                console.log('Update successful');
-            },
-            onError: (errors) => {
-                console.error('Update failed:', errors);
-            }
+        Inertia.put(`/car/update/${currentCar?.id}`,data,{
+            preserveScroll: true
         });
     }
 
@@ -91,22 +69,6 @@ export const EditCarForm = () => {
                     name={item.name}
                     control={control}
                     render={({field}) => (
-                        item.type === 'file' ? (
-                            <Input
-                                {...field}
-                                type="file"
-                                fullWidth
-                                aria-label="画像"
-                                sx={{ marginBottom: 4 ,width: "100%"}}
-                                inputProps={{
-                                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                                        if (e.target.files && e.target.files[0]) {
-                                            setSelectedFile(e.target.files[0]);
-                                        }
-                                    }
-                                }}
-                            />
-                        ):(
                         <TextField
                             {...field}
                             label={item.label}
@@ -118,7 +80,6 @@ export const EditCarForm = () => {
                             }}
                             value={field.value || ''} 
                         />
-                        )
                     )}
                 />
             ))}

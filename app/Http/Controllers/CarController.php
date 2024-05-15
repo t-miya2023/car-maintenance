@@ -34,15 +34,16 @@ class CarController extends Controller
             $image_path = $request->file('img')->store('public/car_img/');
             $data['img'] = basename($image_path);
         } 
-        // dd($request->hasFile('img'));
+        // dd($data);
         Car::create($data);
 
+        return redirect()->back();
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $data = $request->validate([
             'car_model' => 'required|max:50',
@@ -54,31 +55,15 @@ class CarController extends Controller
         ]);
 
         $car = Car::find($id);
-
-        if (!$car) {
-            return response()->json(['error' => 'Car not found'], 404);
-        }
-    
-        if ($request->hasFile('img')) {
-            $image_path = $request->file('img')->store('public/car_img/');
-            $data['img'] = basename($image_path);
-        }
-    
-        try {
-            $car->update($data);
-        } catch (\Exception $e) {
-            \Log::error('Update failed:', ['error' => $e->getMessage()]);
-            return response()->json(['error' => 'Update failed: ' . $e->getMessage()], 409);
-        }
-    
-        return response()->json(['success' => 'Car updated successfully']);
+        $car->update($data);
+        return redirect()->back();
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $car = Car::find($id);
         $car->delete();

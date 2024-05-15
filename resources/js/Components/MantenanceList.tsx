@@ -4,6 +4,8 @@ import { usePage } from '@inertiajs/react';
 import { Cars } from '@/types/cars';
 import { CarContext } from '@/Providers/CarProvider';
 import { Maintenaces } from "@/types/maintenaces";
+import { MaintenanceEditBotton } from "./MaintenanceEditButton";
+import { MaintenanceDeleteButton } from "./MaintenanceDeleteButton";
 
 
 interface PageProps {
@@ -16,6 +18,16 @@ const columns: GridColDef[] = [
   { field: 'maintenance_details', headerName: '点検内容', width: 300 },
   { field: 'date', headerName: '点検日時', width: 130 },
   { field: 'next_time', headerName: '次回点検日時', width: 130 },
+  { field: 'edit', headerName: '編集', width: 80, 
+    renderCell: (params) => (
+      <MaintenanceEditBotton maintenanceId={params.id as number} />
+    ), 
+  },
+  { field: 'delete', headerName: '削除', width: 80,
+    renderCell: (params) => (
+      <MaintenanceDeleteButton maintenanceId={params.id as number} />
+    ), 
+  },
 ];
 
 
