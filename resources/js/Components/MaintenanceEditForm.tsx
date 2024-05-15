@@ -3,7 +3,7 @@ import { Cars } from "@/types/cars";
 import { Maintenaces } from "@/types/maintenaces";
 import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { usePage } from "@inertiajs/react";
-import { Box, Button, Input, TextField } from "@mui/material"
+import { Box, Button, Input, MenuItem, TextField } from "@mui/material"
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form"
 
@@ -25,6 +25,16 @@ const items:ItemType[] = [
     { name: "inspection_type", label: "点検種別", type: "text" , inputmode: "text"},
     { name: "shop", label: "点検店舗", type: "text" , inputmode: "text"},
     { name: "remarks", label: "備考欄", type: "text" , inputmode: "text"}
+];
+
+const InspectionType = [
+    '走行装置',
+    '舵取り装置',
+    '制動装置',
+    '動力伝達装置',
+    '電気装置',
+    '原動機',
+    '排気系',
 ];
 
 interface PageProps {
@@ -87,6 +97,27 @@ export const MaitenanceEditForm = (props:Props) => {
                     name={item.name}
                     control={control}
                     render={({field}) => (
+                        item.name == 'inspection_type' ? (
+                            <TextField
+                                {...field}
+                                label={item.label}
+                                type={item.type}
+                                inputMode={item.inputmode}
+                                fullWidth
+                                sx={{ marginBottom: 4 ,width: "100%"}}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                                select
+                            >
+                                {InspectionType.map(type => (
+                                    <MenuItem value={type}>
+                                        {type}
+                                    </MenuItem>
+                                ))}
+                                
+                            </TextField>
+                        ) : (
                         <TextField
                             {...field}
                             label={item.label}
@@ -98,6 +129,7 @@ export const MaitenanceEditForm = (props:Props) => {
                             shrink: true,
                             }}
                         />
+                        )
                     )}
                 />
             ))}

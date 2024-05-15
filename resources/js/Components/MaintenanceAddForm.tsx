@@ -2,8 +2,8 @@ import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
 import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { usePage } from "@inertiajs/react";
-import { Box, Button, Input, TextField } from "@mui/material"
-import { useContext } from "react";
+import { Box, Button, Input, MenuItem, TextField } from "@mui/material"
+import { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form"
 
 type ItemName = "maintenance_details" | "date" | "next_time" | "amount" | "total_mileage" | "inspection_type" | "shop"| "remarks";
@@ -26,11 +26,22 @@ const items:ItemType[] = [
     { name: "remarks", label: "備考欄", type: "text" , inputmode: "text"}
 ];
 
+const InspectionType = [
+    '走行装置',
+    '舵取り装置',
+    '制動装置',
+    '動力伝達装置',
+    '電気装置',
+    '原動機',
+    '排気系',
+];
+
+
+
 interface PageProps {
     cars: Cars[];
     [key: string]: any;  // インデックスシグネチャを追加
 }
-
 
 export const MaitenanceAddForm = () => {
 
@@ -54,7 +65,6 @@ export const MaitenanceAddForm = () => {
             remarks:'',
         }
     })
-console.log();
 
     const onSubmit = (data: Record<string, FormDataConvertible>) => {
         Inertia.post('/maintenance/store',data,{
@@ -80,7 +90,28 @@ console.log();
                     name={item.name}
                     control={control}
                     render={({field}) => (
-                        <TextField
+                        item.name == 'inspection_type' ? (
+                            <TextField
+                                {...field}
+                                label={item.label}
+                                type={item.type}
+                                inputMode={item.inputmode}
+                                fullWidth
+                                sx={{ marginBottom: 4 ,width: "100%"}}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                                select
+                            >
+                                {InspectionType.map(type => (
+                                    <MenuItem value={type}>
+                                        {type}
+                                    </MenuItem>
+                                ))}
+                                
+                            </TextField>
+                        ) : (
+                            <TextField
                             {...field}
                             label={item.label}
                             type={item.type}
@@ -91,6 +122,7 @@ console.log();
                             shrink: true,
                             }}
                         />
+                        )
                     )}
                 />
             ))}

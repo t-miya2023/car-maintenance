@@ -18,6 +18,11 @@ const columns: GridColDef[] = [
   { field: 'maintenance_details', headerName: '点検内容', width: 300 },
   { field: 'date', headerName: '点検日時', width: 130 },
   { field: 'next_time', headerName: '次回点検日時', width: 130 },
+  { field: 'amount', headerName: '費用', width: 80 },
+  { field: 'total_mileage', headerName: '走行距離', width: 80 },
+  { field: 'inspection_type', headerName: '点検タイプ', width: 130 },
+  { field: 'shop', headerName: '店舗', width: 130 },
+  { field: 'remarks', headerName: '備考', width: 130 },
   { field: 'edit', headerName: '編集', width: 80, 
     renderCell: (params) => (
       <MaintenanceEditBotton maintenanceId={params.id as number} />
@@ -51,6 +56,11 @@ export default function MaintenanceList() {
           maintenance_details: data.maintenance_details,
           date: data.date,
           next_time: data.next_time,
+          amount: data.amount ,
+          total_mileage: data.total_mileage,
+          inspection_type:data.inspection_type,
+          shop: data.shop,
+          remarks: data.remarks,
           }))}
         columns={columns}
         initialState={{
@@ -59,7 +69,7 @@ export default function MaintenanceList() {
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
+        // checkboxSelection
         localeText={{
           noRowsLabel: 'データがありません', // データがない場合のメッセージを設定
         }}
