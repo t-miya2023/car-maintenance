@@ -1,6 +1,7 @@
+import { CarContext } from "@/Providers/CarProvider";
 import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { Box, Button, Input, TextField } from "@mui/material"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form"
 
 type ItemName = "grade" | "model_year" | "color" | "img" | "car_model" | "vehicle_model";
@@ -35,8 +36,10 @@ export const CreateNewCarForm = () => {
     })
     const [ selectedFile, setSelectedFile ] = useState<File | null>(null);
 
+    // グローバルステートから取得
+    const { selectCar, setSelectCar } = useContext(CarContext);
 
-
+    // 登録用関数
     const onSubmit = (data: Record<string, FormDataConvertible>) => {
 
         const formData = new FormData();
@@ -49,7 +52,7 @@ export const CreateNewCarForm = () => {
                 formData.append(key,'');
             }
         }
-        console.log(formData);
+        // console.log(formData);
         Inertia.post('/car/store',formData,{
             preserveScroll: true,
             forceFormData: true,
