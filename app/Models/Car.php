@@ -31,6 +31,5 @@ class Car extends Model
             'grade',
             'model_year',
             'color',
-            'img',
     ];
 }

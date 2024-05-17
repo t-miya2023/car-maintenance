@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\PhotoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,12 @@ Route::middleware('auth')->prefix('maintenance')->group(function () {
     Route::post('/store', [MaintenanceController::class, 'store'])->name('maintenance.store');
     Route::put('/update/{id}', [MaintenanceController::class, 'update'])->name('maintenance.update');
     Route::delete('/destroy/{id}', [MaintenanceController::class, 'destroy'])->name('maintenance.destroy');
+});
+
+Route::middleware('auth')->prefix('photo')->group(function () {
+    Route::post('/store', [PhotoController::class, 'store'])->name('photo.store');
+    Route::put('/update/{id}', [PhotoController::class, 'update'])->name('photoe.update');
+    Route::delete('/destroy/{id}', [PhotoController::class, 'destroy'])->name('photo.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -6,6 +6,7 @@ import { usePage } from "@inertiajs/react";
 import { useContext } from "react";
 import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
+import { CreatePhotoButton } from "./photo/CreatePhotoButton";
 
 
 const bgColor = 'whitesmoke';
@@ -121,6 +122,7 @@ export default function CarSlider(){
                     </Box>
                 )}
             </Carousel>
+            <CreatePhotoButton />
         </Box>
         )
     }

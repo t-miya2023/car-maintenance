@@ -22,7 +22,6 @@ class CarController extends Controller
             'grade' => 'nullable',
             'model_year' => 'nullable',
             'color' => 'nullable',
-            'img' => 'nullable',
         ]);
 
 
@@ -30,11 +29,6 @@ class CarController extends Controller
         $data = $request->all();
         $data['user_id'] = auth()->id();
 
-        if ($request->hasFile('img')) {
-            $image_path = $request->file('img')->store('public/car_img/');
-            $data['img'] = basename($image_path);
-        } 
-        // dd($data);
         Car::create($data);
 
         return redirect()->back();

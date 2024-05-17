@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('car_id')->constrained()->cascadeOnDelete();
             $table->string('path');
-            $table->string('comment',100);
+            $table->string('comment',100)->nullable();
             $table->timestamps();
         });
     }

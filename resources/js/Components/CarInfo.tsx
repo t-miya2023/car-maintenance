@@ -11,8 +11,8 @@ import { usePage } from '@inertiajs/react';
 import { CarContext } from '@/Providers/CarProvider';
 import { useContext } from "react";
 import { Inertia } from '@inertiajs/inertia';
-import { EditCarButton } from './EditCarButton';
-import { DeleteCarButton } from './DeleteCarButton';
+import { EditCarButton } from './car/EditCarButton';
+import { DeleteCarButton } from './car/DeleteCarButton';
 
 
 interface PageProps {

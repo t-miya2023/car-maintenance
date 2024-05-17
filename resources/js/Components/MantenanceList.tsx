@@ -4,8 +4,8 @@ import { usePage } from '@inertiajs/react';
 import { Cars } from '@/types/cars';
 import { CarContext } from '@/Providers/CarProvider';
 import { Maintenaces } from "@/types/maintenaces";
-import { MaintenanceEditBotton } from "./MaintenanceEditButton";
-import { MaintenanceDeleteButton } from "./MaintenanceDeleteButton";
+import { MaintenanceEditBotton } from "./maintenance/MaintenanceEditButton";
+import { MaintenanceDeleteButton } from "./maintenance/MaintenanceDeleteButton";
 
 
 interface PageProps {
