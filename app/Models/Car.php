@@ -19,6 +19,11 @@ class Car extends Model
         return $this->hasMany(Maintenance::class);
     }
 
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
     protected $fillable = [
             'user_id',
             'car_model',

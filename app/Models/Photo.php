@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Maintenance extends Model
+class Photo extends Model
 {
     use HasFactory;
 
@@ -16,13 +16,7 @@ class Maintenance extends Model
 
     protected $fillable = [
         'car_id',
-        'maintenance_details',
-        'date',
-        'next_time',
-        'amount',
-        'total_mileage',
-        'inspection_type',
-        'shop',
-        'remarks',
+        'path',
+        'comment',
     ];
 }
