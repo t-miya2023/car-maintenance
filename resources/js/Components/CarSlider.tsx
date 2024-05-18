@@ -22,13 +22,13 @@ interface PageProps {
 
 export default function CarSlider(){
     // Inertiaからデータを取得
-    const { cars } =usePage<PageProps>().props;
+    const { cars, photos } =usePage<PageProps>().props;
     // グローバルステートから取得
     const { selectCar } = useContext(CarContext);
     //IDから対象の車種情報を取得
     const currentCar = cars.find(car => car.id === selectCar); 
     // 対象車の画像を配列で取得
-    const carImages: string[] = currentCar && currentCar.img ? [currentCar.img] : [];
+    const currentCarPhotos = photos.filter(photo => photo.car_id === selectCar);
 
     if(!currentCar){
         return (
@@ -94,7 +94,7 @@ export default function CarSlider(){
                     borderRadius : 0,//0にすると四角になる．
                 },
             }}>
-                {carImages.length > 0 ? carImages.map((img: string,index: number) => (
+                {currentCarPhotos.length > 0 ? currentCarPhotos.map((img: string,index: number) => (
                     <Box key={index} sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
                         <Box 
                             sx={{
@@ -103,7 +103,7 @@ export default function CarSlider(){
                             mx: 'auto'
                             }}
                             component="img"
-                            src={`storage/car_img/${img}`}
+                            src={`storage/car_img/${img.path}`}
                             alt={`車 ${index + 1}`}
                         ></Box>
                     </Box>
