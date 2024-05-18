@@ -7,6 +7,7 @@ use Inertia\Middleware;
 use Inertia\Inertia;
 use App\Models\Car;
 use App\Models\Maintenance;
+use App\Models\Photo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -49,8 +50,10 @@ class HandleInertiaRequests extends Middleware
         if($cars){
             $carIds = $cars->pluck('id')->toArray();
             $maintenances = Maintenance::whereIn('car_id',$carIds)->get();
+            $photos = Photo::whereIn('car_id',$carIds)->get();
         }else{
             $maintenances = [];
+            $photos = [];
         }
 
 
@@ -62,6 +65,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'cars' => $cars,
             'maintenances' => $maintenances,
+            'photos' => $photos,
         ];
         
     }
