@@ -21,12 +21,9 @@ class PhotoController extends Controller
 
         $data = $request->all();
 
-        if ($request->hasFile('path')) {
-            $image_path = $request->file('path')->store('public/car_img/');
-            $data['path'] = basename($image_path);
-        } 
-        dd($data);
-        dd($request->hasFile('path'));
+        $image_path = $request->file('path')[0]->store('public/car_img/');
+        $data['path'] = basename($image_path);
+        dd($request->file('path'));
         Photo::create($data);
 
         return redirect()->back();

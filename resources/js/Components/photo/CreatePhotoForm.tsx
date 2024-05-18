@@ -3,14 +3,21 @@ import { Cars } from "@/types/cars";
 import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { usePage } from "@inertiajs/react";
 import { Box, Button, Input, InputLabel, MenuItem, TextField } from "@mui/material"
+import { MuiFileInput } from "mui-file-input";
 import { useContext, useState } from "react";
-import { Controller, useForm } from "react-hook-form"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
 
 
 interface PageProps {
     cars: Cars[];
     [key: string]: any;  // インデックスシグネチャを追加
+}
+
+type  Inputs = {
+    car_id: number;
+    path: string;
+    comment: string;
 }
 
 export const CreatePhotoForm = () => {
@@ -29,8 +36,14 @@ export const CreatePhotoForm = () => {
             comment: '',
         }
     })
+    // バリデーションルール 
+    const validationRules = {
+        path: {
+            required: '画像を選択してください',
+        }
+    }
 
-    const onSubmit = (data: Record<string, FormDataConvertible>) => {
+    const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
         Inertia.post('/photo/store',data,{
             preserveScroll: true,
         });
@@ -51,16 +64,15 @@ export const CreatePhotoForm = () => {
                 <Controller 
                     name="path"
                     control={control}
-                    render={({field}) => (
-                        <Box>
+                    render={({field: {onChange}}) => (
+                        <>
                             <InputLabel>写真を追加してください</InputLabel>
                             <Input
-                                {...field}
                                 type="file"
-                                fullWidth
                                 sx={{ marginBottom: 4 ,width: "100%"}}
+                                onChange={(e) => onChange(e.target.files)}
                             />
-                        </Box>
+                        </>
                     )}
                 />
             {/* コメント */}
