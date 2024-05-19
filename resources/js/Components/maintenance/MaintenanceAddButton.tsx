@@ -2,6 +2,7 @@ import { Box, Button, Drawer, Typography } from "@mui/material"
 import AddIcon from '@mui/icons-material/Add';
 import * as React from 'react';
 import { MaitenanceAddForm } from "./MaintenanceAddForm";
+import { CarContext } from "@/Providers/CarProvider";
 
 
 export const MaintenanceAddBotton = () => {
@@ -9,6 +10,8 @@ export const MaintenanceAddBotton = () => {
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
     };
+    // グローバルステートから取得
+    const { selectCar } = React.useContext(CarContext);
 
     const DrawerForm = (
         <Box sx={{ width: "auto" }} p={5} role="presentation" >
@@ -18,7 +21,7 @@ export const MaintenanceAddBotton = () => {
 
     return (
         <Box textAlign={"right"} mb={2}>
-            <Button onClick={toggleDrawer(true)} variant="outlined">
+            <Button onClick={toggleDrawer(true)} variant="outlined" disabled={!selectCar}>
                 <AddIcon />メンテナンスの追加
             </Button>
             <Drawer

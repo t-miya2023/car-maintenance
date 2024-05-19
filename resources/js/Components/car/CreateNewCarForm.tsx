@@ -1,17 +1,16 @@
 import { CarContext } from "@/Providers/CarProvider";
+import { Cars } from "@/types/cars";
 import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { Box, Button, Input, TextField } from "@mui/material"
-import { useContext, useState } from "react";
-import { Controller, useForm } from "react-hook-form"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
-type ItemName = "grade" | "model_year" | "color" | "img" | "car_model" | "vehicle_model";
+type ItemName = "grade" | "model_year" | "color" | "car_model" | "vehicle_model";
 
 type ItemType = {
     name: ItemName;
     label: string;
     type: string;
 }
-
 const items:ItemType[] = [
     { name: "car_model", label: "車種", type: "text" },
     { name: "vehicle_model", label: "型式", type: "text" },
@@ -20,29 +19,36 @@ const items:ItemType[] = [
     { name: "color", label: "色", type: "text" },
 ];
 
+type Validation = {
+    car_model:{
+        required: string,
+        maxLength: { value: number, message: string }
+    }
+}
 
 
 export const CreateNewCarForm = () => {
-    const { control, handleSubmit  } = useForm({
+    const { control, handleSubmit  } = useForm<Cars>({
         defaultValues:{
             car_model: '',
             vehicle_model: '',
             grade: '',
             model_year: '',
             color: '',
-            img:'',
         }
     })
-    const [ selectedFile, setSelectedFile ] = useState<File | null>(null);
-
-    // グローバルステートから取得
-    const { selectCar, setSelectCar } = useContext(CarContext);
+    // ヴァリデーションルール
+    const validationRules: Validation = {
+        car_model:{
+            required: '車種名を入力してください。',
+            maxLength: { value: 30, message: '30文字以内で入力してください。' }
+        }
+    }
 
     // 登録用関数
-    const onSubmit = (data: Record<string, FormDataConvertible>) => {
+    const onSubmit:SubmitHandler<Cars> = (data: Cars) => {
         Inertia.post('/car/store',data,{
             preserveScroll: true,
-            forceFormData: true,
         });
     }
 
@@ -63,11 +69,14 @@ export const CreateNewCarForm = () => {
                     key={item.name}
                     name={item.name}
                     control={control}
-                    render={({field}) => (
+                    rules={validationRules[item.name as keyof Validation] }
+                    render={({ field, fieldState }) => (
                         <TextField
                             {...field}
                             label={item.label}
                             type={item.type}
+                            error={fieldState.invalid}
+                            helperText={fieldState.error?.message}
                             fullWidth
                             sx={{ marginBottom: 4 ,width: "100%"}}
                             InputLabelProps={{

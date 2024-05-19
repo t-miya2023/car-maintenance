@@ -6,7 +6,7 @@ import { Box, Button, TextField } from "@mui/material"
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form"
 
-type ItemName = "grade" | "model_year" | "color" | "img" | "car_model" | "vehicle_model";
+type ItemName = "grade" | "model_year" | "color" | "car_model" | "vehicle_model";
 
 type ItemType = {
     name: ItemName;
@@ -42,7 +42,6 @@ export const EditCarForm = () => {
             grade: currentCar?.grade || '',
             model_year: currentCar?.model_year || '',
             color: currentCar?.color || '',
-            img: '',
         }
     })
     // 更新用関数

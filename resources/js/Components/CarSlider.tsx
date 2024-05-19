@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
 import { CreatePhotoButton } from "./photo/CreatePhotoButton";
+import { Photos } from "@/types/photos";
 
 
 const bgColor = 'whitesmoke';
@@ -17,7 +18,7 @@ const ActiveIcon = 'midnightblue';
 
 interface PageProps {
     cars: Cars[];
-    photos: string[];
+    photos: Photos[];
     [key: string]: any;  // インデックスシグネチャを追加
 }
 
@@ -95,7 +96,7 @@ export default function CarSlider(){
                     borderRadius : 0,//0にすると四角になる．
                 },
             }}>
-                {currentCarPhotos.length > 0 ? currentCarPhotos.map((img: string,index: number) => (
+                {currentCarPhotos.length > 0 ? currentCarPhotos.map((img,index) => (
                     <Box key={index} sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
                         <Box 
                             sx={{

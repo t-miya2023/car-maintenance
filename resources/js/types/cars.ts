@@ -6,5 +6,4 @@ export type Cars = {
     grade: string | null ;
     model_year: string | null ;
     color: string | null;
-    img: string | null ;
 }
