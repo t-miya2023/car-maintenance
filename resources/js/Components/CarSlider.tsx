@@ -17,6 +17,7 @@ const ActiveIcon = 'midnightblue';
 
 interface PageProps {
     cars: Cars[];
+    photos: string[];
     [key: string]: any;  // インデックスシグネチャを追加
 }
 
