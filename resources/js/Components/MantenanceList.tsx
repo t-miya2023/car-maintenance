@@ -49,7 +49,7 @@ export default function MaintenanceList() {
       // console.log(maintenanceArray);
       
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 400, width: '100%' }} >
       <DataGrid
         rows={maintenanceArray.map(data => ({
           id: data.id,

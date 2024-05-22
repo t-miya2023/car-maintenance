@@ -8,6 +8,7 @@ import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
 import { CreatePhotoButton } from "./photo/CreatePhotoButton";
 import { Photos } from "@/types/photos";
+import { Typography } from "@mui/material";
 
 
 const bgColor = 'whitesmoke';
@@ -34,7 +35,7 @@ export default function CarSlider(){
 
     if(!currentCar){
         return (
-            <Box flex={1} mr={2}>
+            <Box flex={1} mr={2} mb={2}>
                 <Box sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
                     <Box 
                         sx={{
@@ -51,7 +52,7 @@ export default function CarSlider(){
         )
     }else{
         return(
-            <Box flex={1} mr={2}>
+            <Box flex={1} mr={2} mb={2}>
             <Carousel
     
                 NextIcon={<ArrowForwardIosSharpIcon/>} //矢印アイコンを別のアイコンに変更
@@ -97,17 +98,18 @@ export default function CarSlider(){
                 },
             }}>
                 {currentCarPhotos.length > 0 ? currentCarPhotos.map((img,index) => (
-                    <Box key={index} sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
+                    <Box key={index} sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"flex-end"} flexDirection={"column"}>
                         <Box 
                             sx={{
                             height: "auto",
-                            width: { xs: '100%', sm: '80%', md: '60%', lg: '450px' }, 
+                            width: "100%", 
                             mx: 'auto'
                             }}
                             component="img"
                             src={`storage/car_img/${img.path}`}
                             alt={`車 ${index + 1}`}
                         ></Box>
+                        <Typography>{img.comment}</Typography>
                     </Box>
                 )):(
                     <Box sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
