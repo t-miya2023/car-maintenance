@@ -30,7 +30,7 @@ export default function CarInfo() {
     const currentCar = cars.find(car => car.id === selectCar); 
 
     return (
-        <TableContainer component={Paper} sx={{ flex: 1, height:["500px","500px","220px","220px"] }} >
+        <TableContainer component={Paper} sx={{ flex: 1, height:["500px","500px","220px","220px"],width:"100%" }} >
             {currentCar ? (
                 <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
                 <TableHead>

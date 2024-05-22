@@ -52,7 +52,7 @@ export default function CarSlider(){
         )
     }else{
         return(
-            <Box flex={1} mr={2} mb={2}>
+            <Box flex={1} mr={2} mb={2} sx={{width:"100%"}}>
             <Carousel
     
                 NextIcon={<ArrowForwardIosSharpIcon/>} //矢印アイコンを別のアイコンに変更
