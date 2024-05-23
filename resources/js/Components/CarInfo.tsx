@@ -30,17 +30,17 @@ export default function CarInfo() {
     const currentCar = cars.find(car => car.id === selectCar); 
 
     return (
-        <TableContainer component={Paper} sx={{ flex: 1, height:["500px","500px","220px","220px"],width:"100%" }} >
+        <TableContainer component={Paper} sx={{ flex: 1, width:"100%" }} >
             {currentCar ? (
                 <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
-                <TableHead>
+                <TableHead sx={{ height: '100%' }}>
                 <TableRow>
                     <TableCell>車種名</TableCell>
                     <TableCell>{currentCar?.car_model}</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow>
+                    <TableRow sx={{ height: '100%' }}>
                         <TableCell component="th" scope="row">
                             型式
                         </TableCell>
@@ -48,7 +48,7 @@ export default function CarInfo() {
                             {currentCar?.vehicle_model}
                         </TableCell>
                     </TableRow>
-                    <TableRow>
+                    <TableRow sx={{ height: '100%' }}>
                         <TableCell component="th" scope="row">
                             グレード
                         </TableCell>
@@ -56,7 +56,7 @@ export default function CarInfo() {
                             {currentCar?.grade}
                         </TableCell>
                     </TableRow>
-                    <TableRow>
+                    <TableRow sx={{ height: '100%' }}>
                         <TableCell component="th" scope="row">
                             年式
                         </TableCell>
@@ -64,7 +64,7 @@ export default function CarInfo() {
                             {currentCar?.model_year}
                         </TableCell>
                     </TableRow>
-                    <TableRow>
+                    <TableRow sx={{ height: '100%' }}>
                         <TableCell component="th" scope="row">
                             カラー
                         </TableCell>
@@ -72,7 +72,7 @@ export default function CarInfo() {
                             {currentCar?.color}
                         </TableCell>
                     </TableRow>
-                    <TableRow>
+                    <TableRow sx={{ height: '100%' }}>
                         {/* 編集 */}
                         <TableCell component="td" scope="row">
                             <EditCarButton />

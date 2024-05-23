@@ -46,7 +46,7 @@ export const CreateNewCarForm = () => {
     }
 
     // 登録用関数
-    const onSubmit:SubmitHandler<Cars> = (data: Cars) => {
+    const onSubmit:SubmitHandler<Cars> = (data) => {
         Inertia.post('/car/store',data,{
             preserveScroll: true,
         });

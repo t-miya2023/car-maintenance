@@ -4,7 +4,7 @@ import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { usePage } from "@inertiajs/react";
 import { Box, Button, TextField } from "@mui/material"
 import { useContext } from "react";
-import { Controller, useForm } from "react-hook-form"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
 type ItemName = "grade" | "model_year" | "color" | "car_model" | "vehicle_model";
 
@@ -27,6 +27,13 @@ interface PageProps {
     [key: string]: any;  // インデックスシグネチャを追加
 }
 
+type Validation = {
+    car_model:{
+        required: string,
+        maxLength: { value: number, message: string }
+    }
+}
+
 export const EditCarForm = () => {
     // Inertiaからデータを取得
     const { cars } =usePage<PageProps>().props;
@@ -44,8 +51,15 @@ export const EditCarForm = () => {
             color: currentCar?.color || '',
         }
     })
+    // ヴァリデーションルール
+    const validationRules: Validation = {
+        car_model:{
+            required: '車種名を入力してください。',
+            maxLength: { value: 30, message: '30文字以内で入力してください。' }
+        }
+    }
     // 更新用関数
-    const onSubmit = (data: Record<string, FormDataConvertible>) => {
+    const onSubmit:SubmitHandler<Omit<Cars,'id' | 'user_id'>>= (data) => {
         Inertia.put(`/car/update/${currentCar?.id}`,data,{
             preserveScroll: true
         });
@@ -66,11 +80,14 @@ export const EditCarForm = () => {
                     key={item.name}
                     name={item.name}
                     control={control}
-                    render={({field}) => (
+                    rules={validationRules[item.name as keyof Validation] }
+                    render={({field, fieldState}) => (
                         <TextField
                             {...field}
                             label={item.label}
                             type={item.type}
+                            error={fieldState.invalid}
+                            helperText={fieldState.error?.message}
                             fullWidth
                             sx={{ marginBottom: 4 ,width: "100%"}}
                             InputLabelProps={{
@@ -81,8 +98,6 @@ export const EditCarForm = () => {
                     )}
                 />
             ))}
-
-            
             <Button sx={{width:'300px',margin:'auto'}}type="submit" variant="contained" color="secondary">更新</Button>
         </Box>
     )
