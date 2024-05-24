@@ -32,7 +32,7 @@ export default function CarInfo() {
     return (
         <TableContainer component={Paper} sx={{ flex: 1, width:"100%" }} >
             {currentCar ? (
-                <Table sx={{ minWidth: 300 }} size="small" aria-label="a dense table">
+                <Table sx={{ minWidth: 300 }}  aria-label="a dense table">
                 <TableHead sx={{ height: '100%' }}>
                 <TableRow>
                     <TableCell>車種名</TableCell>
