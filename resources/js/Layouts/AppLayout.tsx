@@ -7,7 +7,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Outlet } from 'react-router-dom';
-import Dropdown from '@/Components/Dropdown';
+import Dropdown from '@/Components/other/Dropdown';
 import { User } from '@/types';
 import { SideBar } from '@/Components/common/SideBar';
 const drawerWidth = 240;

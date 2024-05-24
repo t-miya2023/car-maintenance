@@ -6,7 +6,7 @@
     import TableHead from '@mui/material/TableHead';
     import TableRow from '@mui/material/TableRow';
     import Paper from '@mui/material/Paper';
-import { BackButton } from '@/Components/BackButton';
+import { BackButton } from '@/Components/other/BackButton';
 import { Button, Link } from '@mui/material';
 import { Inertia } from '@inertiajs/inertia';
 

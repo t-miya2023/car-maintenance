@@ -1,8 +1,8 @@
 import { Link, Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import DangerButton from '@/Components/DangerButton';
+import PrimaryButton from '@/Components/other/PrimaryButton';
+import TextInput from '@/Components/other/TextInput';
+import DangerButton from '@/Components/other/DangerButton';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<{ laravelVersion: string, phpVersion: string }>) {
     return (

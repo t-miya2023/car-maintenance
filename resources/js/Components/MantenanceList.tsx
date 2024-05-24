@@ -73,7 +73,7 @@ export default function MaintenanceList() {
         localeText={{
           noRowsLabel: 'データがありません', // データがない場合のメッセージを設定
         }}
-        sx={{ width:['400px','600px','100%','100%'], minWidth:'300px'}}
+        sx={{ width:'100%', minWidth:'300px'}}
       />
     </div>
   );

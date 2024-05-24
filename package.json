@@ -30,6 +30,8 @@
         "@mui/icons-material": "^5.15.15",
         "@mui/material": "^5.15.15",
         "@mui/x-data-grid": "^7.3.2",
+        "@mui/x-date-pickers": "^6.20.0",
+        "date-fns": "^3.6.0",
         "mui-file-input": "^4.0.4",
         "react-hook-form": "^7.51.3",
         "react-material-ui-carousel": "^3.4.2",

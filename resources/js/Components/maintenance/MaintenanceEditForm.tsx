@@ -5,7 +5,7 @@ import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { usePage } from "@inertiajs/react";
 import { Box, Button, Input, MenuItem, TextField } from "@mui/material"
 import { useContext } from "react";
-import { Controller, useForm } from "react-hook-form"
+import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
 type ItemName = "maintenance_details" | "date" | "next_time" | "amount" | "total_mileage" | "inspection_type" | "shop"| "remarks";
 
@@ -26,6 +26,34 @@ const items:ItemType[] = [
     { name: "shop", label: "点検店舗", type: "text" , inputmode: "text"},
     { name: "remarks", label: "備考欄", type: "text" , inputmode: "text"}
 ];
+// 入力値の型
+type Input = {
+    car_id: number;
+    maintenance_details: string;
+    date: string ;
+    next_time: string | null ;
+    amount: string ;
+    total_mileage: string ;
+    inspection_type: string ;
+    shop: string | null ;
+    remarks: string | null ;
+}
+// ヴァリデーションの型
+type Validation = {
+    maintenance_details:{
+        required: string,
+        maxLength:  { value: number, message: string }
+    },
+    date:{
+        required: string
+    },
+    amount:{
+        required: string
+    },
+    total_mileage:{
+        required: string
+    }
+}
 
 const InspectionType = [
     '走行装置',
@@ -54,25 +82,42 @@ export const MaitenanceEditForm = (props:Props) => {
     // グローバルステートから取得
     const { selectCar } = useContext(CarContext);
     //selectCarから選択中の車のIDを取得
-    const currentCarId = cars.find(car => car.id === selectCar)?.id; 
+    const currentCarId = cars.find(car => car.id === selectCar)?.id as number; 
     // メンテナンスIDからメンテナンス情報を取得
     const currentMaintenance = maintenances.find(maintenance => maintenance.id === maintenanceId);
 
     const { control, handleSubmit  } = useForm({
         defaultValues:{
             car_id: currentCarId,
-            maintenance_details: currentMaintenance?.maintenance_details,
-            date: currentMaintenance?.date,
+            maintenance_details: currentMaintenance?.maintenance_details || '',
+            date: currentMaintenance?.date || '',
             next_time: currentMaintenance?.next_time || '',
-            amount: currentMaintenance?.amount,
-            total_mileage: currentMaintenance?.total_mileage,
-            inspection_type: currentMaintenance?.inspection_type,
+            amount: currentMaintenance?.amount || '',
+            total_mileage: currentMaintenance?.total_mileage || '',
+            inspection_type: currentMaintenance?.inspection_type || '',
             shop: currentMaintenance?.shop || '',
             remarks: currentMaintenance?.remarks || '',
         }
     })
 
-    const onSubmit = (data: Record<string, FormDataConvertible>) => {
+        // ヴァリデーションルール
+        const validationRules = {
+            maintenance_details:{
+                required: '点検内容を入力してください。',
+                maxLength:  { value: 100, message: '100文字以内で入力してください。' }
+            },
+            date:{
+                required: '点検日を入力してください。'
+            },
+            amount:{
+                required: '費用を入力してください。'
+            },
+            total_mileage:{
+                required: '総走行距離を入力してください。'
+            }
+        }
+    
+    const onSubmit:SubmitHandler<Input> = (data) => {
         if(currentMaintenance){
             Inertia.put(`/maintenance/update/${currentMaintenance.id}`,data,{
                 preserveScroll: true,
@@ -96,7 +141,8 @@ export const MaitenanceEditForm = (props:Props) => {
                     key={item.name}
                     name={item.name}
                     control={control}
-                    render={({field}) => (
+                    rules={validationRules[item.name as keyof Validation]}
+                    render={({field, fieldState}) => (
                         item.name == 'inspection_type' ? (
                             <TextField
                                 {...field}
@@ -123,6 +169,8 @@ export const MaitenanceEditForm = (props:Props) => {
                             label={item.label}
                             type={item.type}
                             inputMode={item.inputmode}
+                            error={fieldState.invalid}
+                            helperText={fieldState.error?.message}
                             fullWidth
                             sx={{ marginBottom: 4 ,width: "100%"}}
                             InputLabelProps={{

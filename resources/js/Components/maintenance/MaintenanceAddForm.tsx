@@ -109,7 +109,7 @@ export const MaitenanceAddForm = () => {
         }
     }
 
-    const onSubmit:SubmitHandler<Input> = (data: Input) => {
+    const onSubmit:SubmitHandler<Input> = (data) => {
         Inertia.post('/maintenance/store',data,{
             preserveScroll: true,
         });

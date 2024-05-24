@@ -2,7 +2,7 @@ import { Link } from "@inertiajs/react"
 import { Box, Button, Stack, TextField } from "@mui/material"
 import { useEffect, useState } from "react";
 import { Inertia } from "@inertiajs/inertia"; 
-import { BackButton } from "@/Components/BackButton";
+import { BackButton } from "@/Components/other/BackButton";
 
 type Props = {
     car : {

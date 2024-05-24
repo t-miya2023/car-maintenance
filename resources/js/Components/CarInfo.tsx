@@ -85,10 +85,10 @@ export default function CarInfo() {
                 </TableBody>
                 </Table>
             ):(
-            <Table sx={{ minWidth: 300 }} size="small">
+            <Table sx={{ minWidth: 300 }} >
                 <TableBody>
-                    <TableRow sx={{height:"200px"}}>
-                        <TableCell style={{ textAlign: 'center', padding: '16px', fontSize:"1.5rem", verticalAlign: 'middle' }}>
+                    <TableRow sx={{height:'100%'}}>
+                        <TableCell style={{ display:'flex', justifyContent: 'center', alignItems:'cemter' }} component="td" scope="row">
                             空
                         </TableCell>
                     </TableRow>

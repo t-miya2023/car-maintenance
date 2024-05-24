@@ -1,5 +1,5 @@
 import { FormControl, MenuItem, Select } from "@mui/material"
-import InputLabel from "./InputLabel"
+import InputLabel from "./other/InputLabel"
 import { usePage } from "@inertiajs/react";
 import { Cars } from "@/types/cars";
 import { Controller, useForm } from "react-hook-form";
