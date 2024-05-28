@@ -34,11 +34,13 @@ export const Graph = (props:Props) => {
         const newDate = date.getFullYear();
         return newDate === currentYear;
     })
-    // .reduce((acc, array) => {
-    //     acc[array.inspection_type] += array.amount;
-    //     return acc;
-    // });
-    console.log(typeSum);
+    .reduce((acc: { [key: string]: number }, array) => {
+        const type = array.inspection_type;
+        if (!acc[type]) acc[type] = 0; // inspection_typeが初めて出現した場合、0で初期化
+        acc[type] += Number(array.amount); // amountを数値に変換
+        return acc;
+    },{});
+    
     const data = {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [
