@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { ChartData } from 'chart.js';
 import { Pie } from "react-chartjs-2";
 import { Cars } from '@/types/cars';
-import { Maintenaces } from '@/types/maintenaces';
+import { InspectionType, Maintenaces } from '@/types/maintenaces';
 import { usePage } from '@inertiajs/react';
 import { CarContext } from '@/Providers/CarProvider';
+import { Box, Typography } from '@mui/material';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -34,19 +36,28 @@ export const Graph = (props:Props) => {
         const newDate = date.getFullYear();
         return newDate === currentYear;
     })
-    .reduce((acc: { [key: string]: number }, array) => {
+    .reduce<Record<InspectionType,number>>((acc, array) => {
         const type = array.inspection_type;
         if (!acc[type]) acc[type] = 0; // inspection_typeが初めて出現した場合、0で初期化
         acc[type] += Number(array.amount); // amountを数値に変換
         return acc;
-    },{});
-    
-    const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    },{} as Record<InspectionType, number>);
+    // 値を配列に格納
+    const labels = Object.keys(typeSum);
+    const values = Object.values(typeSum);
+    // グラフのオプション設定
+    const options = {
+      maintainAspectRatio: false,
+      responsive: true,
+    }
+
+    const data: ChartData<"pie"> = {
+        labels: labels,
         datasets: [
           {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: '合計',
+
+            data: values,
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
@@ -68,6 +79,21 @@ export const Graph = (props:Props) => {
         ],
       };
     return (
-        <Pie data={data} />
+      <>
+        <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexGrow: 1,
+        }}>
+          {maintenanceArray.length > 0 ? (
+          <Pie data={data} options={options} />
+          ) : (
+            <Typography>データがありません。</Typography>
+          )}
+        </Box>
+      </>
+
     )
 }

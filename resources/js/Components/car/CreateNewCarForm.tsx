@@ -1,6 +1,5 @@
-import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
-import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
+import { Inertia } from "@inertiajs/inertia"
 import { Box, Button, Input, TextField } from "@mui/material"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
@@ -37,6 +36,7 @@ export const CreateNewCarForm = () => {
             color: '',
         }
     })
+
     // ヴァリデーションルール
     const validationRules: Validation = {
         car_model:{
@@ -48,7 +48,7 @@ export const CreateNewCarForm = () => {
     // 登録用関数
     const onSubmit:SubmitHandler<Cars> = (data) => {
         Inertia.post('/car/store',data,{
-            preserveScroll: true,
+                preserveScroll: true,
         });
     }
 
