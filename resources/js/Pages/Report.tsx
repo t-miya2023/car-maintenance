@@ -1,9 +1,10 @@
-import { BarChart } from "@/Components/BarChart"
+import HorizontalBars from "@/Components/HorizontalBars"
 import { Graph } from "@/Components/Graph"
 import { SelectCar } from "@/Components/SelectCar"
 import { YearSelector } from "@/Components/YearSelector"
 import { Grid, Paper } from "@mui/material"
 import { useState } from "react"
+import { Comment } from "@/Components/Comment"
 
 export const Report = () => {
     const paperStyle = {
@@ -23,6 +24,11 @@ export const Report = () => {
             <Grid item xs={12}>
                 <YearSelector setCurrentYear={setCurrentYear} currentYear={currentYear} />
             </Grid>
+            <Grid item xs={12}>
+                <Paper>
+                    <Comment />
+                </Paper>
+            </Grid>
             <Grid item xs={12} md={6}>
                 <Paper sx={paperStyle}>
                     <Graph currentYear={currentYear} />
@@ -30,7 +36,7 @@ export const Report = () => {
             </Grid>
             <Grid item xs={12} md={6}>
                 <Paper sx={paperStyle}>
-                    <BarChart />
+                    <HorizontalBars  currentYear={currentYear} />
                 </Paper>
             </Grid>
         </Grid>

@@ -49,6 +49,7 @@ export const Graph = (props:Props) => {
     const options = {
       maintainAspectRatio: false,
       responsive: true,
+      
     }
 
     const data: ChartData<"pie"> = {
@@ -56,7 +57,7 @@ export const Graph = (props:Props) => {
         datasets: [
           {
             label: '合計',
-
+            
             data: values,
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
@@ -87,10 +88,12 @@ export const Graph = (props:Props) => {
           justifyContent: "center",
           flexGrow: 1,
         }}>
-          {maintenanceArray.length > 0 ? (
-          <Pie data={data} options={options} />
-          ) : (
+          {!currentCarId ? (
+            <Typography>車が登録されていません。</Typography>
+          ) : values.length === 0 ? (
             <Typography>データがありません。</Typography>
+          ) : (
+            <Pie data={data} options={options} />
           )}
         </Box>
       </>
