@@ -26,7 +26,7 @@ export const Report = () => {
             </Grid>
             <Grid item xs={12}>
                 <Paper>
-                    <Comment />
+                    <Comment currentYear={currentYear} />
                 </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
