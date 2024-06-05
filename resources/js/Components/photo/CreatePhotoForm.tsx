@@ -2,7 +2,7 @@ import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
 import { FormDataConvertible, Inertia } from "@inertiajs/inertia"
 import { usePage } from "@inertiajs/react";
-import { Box, Button, Input, InputLabel, MenuItem, TextField } from "@mui/material"
+import { Box, Button, FormHelperText, Input, InputLabel, MenuItem, TextField } from "@mui/material"
 import { MuiFileInput } from "mui-file-input";
 import { useContext, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
@@ -38,9 +38,7 @@ export const CreatePhotoForm = () => {
     })
     // バリデーションルール 
     const validationRules = {
-        path: {
             required: '画像を選択してください',
-        }
     }
 
     const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
@@ -64,14 +62,17 @@ export const CreatePhotoForm = () => {
                 <Controller 
                     name="path"
                     control={control}
-                    render={({field: {onChange}}) => (
+                    rules={validationRules}
+                    render={({field: {onChange} , fieldState: {error}}) => (
                         <>
                             <InputLabel>写真を追加してください</InputLabel>
+                            {error && <FormHelperText error>{error.message}</FormHelperText>}
                             <Input
                                 type="file"
                                 sx={{ marginBottom: 4 ,width: "100%"}}
                                 onChange={(e) => onChange(e.target.files)}
                             />
+                            
                         </>
                     )}
                 />
@@ -98,6 +99,7 @@ export const CreatePhotoForm = () => {
                         {...field}
                         type="hidden"
                         value={currentCarId}
+                        sx={{ diaplay: "none" }}
                     />
                     )}
                 />

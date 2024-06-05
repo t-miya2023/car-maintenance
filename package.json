@@ -38,6 +38,8 @@
         "react-chartjs-2": "^5.2.0",
         "react-hook-form": "^7.51.3",
         "react-material-ui-carousel": "^3.4.2",
+        "react-modal": "^3.16.1",
+        "react-responsive-carousel": "^3.2.23",
         "react-router-dom": "^6.23.0"
     }
 }

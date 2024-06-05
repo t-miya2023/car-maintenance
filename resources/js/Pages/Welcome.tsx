@@ -3,41 +3,50 @@ import { PageProps } from '@/types';
 import PrimaryButton from '@/Components/other/PrimaryButton';
 import TextInput from '@/Components/other/TextInput';
 import DangerButton from '@/Components/other/DangerButton';
+import { Box } from '@mui/material';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<{ laravelVersion: string, phpVersion: string }>) {
     return (
         <>
             <Head title="Welcome" />
             <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-                <div className="sm:fixed sm:top-0 sm:right-0 p-6 text-end">
-                    {auth.user ? (
-                        <Link
-                            href={route('dashboard')}
-                            className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                        >
-                            マイページ
-                        </Link>
-                    ) : (
-                        <>
+                <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                    <Box my={5} >
+                        <Box sx={{
+                            height: "auto",
+                            width: { xs: '80%', sm: '80%', md: '60%', lg: '450px' }, 
+                            mx: 'auto',
+                            }}
+                            component="img"src="/images/logo.svg" alt="logo">
+                        </Box>
+                    </Box>
+                    <Box sx={{ textAlign: "center", fontSize: { xs: '1rem', sm: '1rem', md: '1.5rem', lg: '2rem' } }}>
+                        {auth.user ? (
                             <Link
-                                href={route('login')}
+                                href={route('dashboard')}
                                 className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
                             >
-                                ログイン
+                                マイページ
                             </Link>
+                        ) : (
+                            <>
+                                <Link
+                                    href={route('login')}
+                                    className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                                >
+                                    ログイン
+                                </Link>
 
-                            <Link
-                                href={route('register')}
-                                className="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                            >
-                                新規登録
-                            </Link>
-                        </>
-                    )}
-                </div>
-            <PrimaryButton>test</PrimaryButton>
-            <TextInput></TextInput>
-            <DangerButton>test</DangerButton>
+                                <Link
+                                    href={route('register')}
+                                    className="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                                >
+                                    新規登録
+                                </Link>
+                            </>
+                        )}
+                    </Box>
+                </Box>
             </div>
 
             <style>{`
