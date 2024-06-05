@@ -11,6 +11,7 @@ export const Report = () => {
         height:{ xs: "auto", md: "400px" },
         display: "flex",
         flexDrection: "column",
+        width: "100%"
     }
     const day = new Date();
     const year = day.getFullYear();
