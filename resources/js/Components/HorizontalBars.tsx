@@ -82,6 +82,7 @@ export default function HorizontalBars(props:Props) {
           alignItems: "center",
           justifyContent: "center",
           flexGrow: 1,
+          height: '400px',
         }}>
           {!currentCarId ? (
             <Typography>車が登録されていません。</Typography>

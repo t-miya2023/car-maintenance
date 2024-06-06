@@ -45,7 +45,7 @@ export const Comment = (props:Props) => {
             padding: "20px"
         }}
         >
-            <Typography fontSize={"2rem"}>
+            <Typography fontSize={{md:"2rem"}}>
                 {currentYear}年の{currentCarModel}の維持費は{yearSum}円です
             </Typography>
         </Box>

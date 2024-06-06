@@ -6,6 +6,7 @@ import { CarContext } from '@/Providers/CarProvider';
 import { Maintenaces } from "@/types/maintenaces";
 import { MaintenanceEditBotton } from "./maintenance/MaintenanceEditButton";
 import { MaintenanceDeleteButton } from "./maintenance/MaintenanceDeleteButton";
+import { useMediaQuery } from "@mui/material";
 
 
 interface PageProps {
@@ -13,13 +14,23 @@ interface PageProps {
   maintenances: Maintenaces[];
   [key: string]: any;  // インデックスシグネチャを追加
 }
-
+// PC用
 const columns: GridColDef[] = [
-  { field: 'maintenance_details', headerName: '点検内容', width: 300 },
+  { field: 'maintenance_details', headerName: '点検内容', width: 200 },
   { field: 'date', headerName: '点検日時', width: 130 },
   { field: 'next_time', headerName: '次回点検日時', width: 130 },
-  { field: 'amount', headerName: '費用', width: 80 },
-  { field: 'total_mileage', headerName: '走行距離', width: 80 },
+  { field: 'amount', headerName: '費用', width: 100,
+    renderCell: (params) => {
+      const formatAmount = Number(params.value).toLocaleString('ja-JP'); //表記を変更
+      return <span>{formatAmount} 円</span>
+    }
+
+  },
+  { field: 'total_mileage', headerName: '走行距離', width: 100,
+    renderCell: (params) => (
+      <span>{params.value} km</span>
+    )
+  },
   { field: 'inspection_type', headerName: '点検タイプ', width: 130 },
   { field: 'shop', headerName: '店舗', width: 130 },
   { field: 'remarks', headerName: '備考', width: 130 },
@@ -35,9 +46,42 @@ const columns: GridColDef[] = [
   },
 ];
 
+// スマホ用
+const mobileColumns: GridColDef[] = [
+  { field: 'edit', headerName: '編集', width: 50, 
+    renderCell: (params) => (
+      <MaintenanceEditBotton maintenanceId={params.id as number} />
+    ), 
+  },
+  { field: 'delete', headerName: '削除', width: 50,
+    renderCell: (params) => (
+      <MaintenanceDeleteButton maintenanceId={params.id as number} />
+    ), 
+  },
+  { field: 'maintenance_details', headerName: '点検内容', width: 100 },
+  { field: 'date', headerName: '点検日時', width: 80 },
+  { field: 'next_time', headerName: '次回点検日時', width: 80 },
+  { field: 'amount', headerName: '費用', width: 100,
+    renderCell: (params) => {
+      const formatAmount = Number(params.value).toLocaleString('ja-JP'); //表記を変更
+      return <span>{formatAmount} 円</span>
+    }
+
+  },
+  { field: 'total_mileage', headerName: '走行距離', width: 100,
+    renderCell: (params) => (
+      <span>{params.value} km</span>
+    )
+  },
+  { field: 'inspection_type', headerName: '点検タイプ', width: 130 },
+  { field: 'shop', headerName: '店舗', width: 130 },
+  { field: 'remarks', headerName: '備考', width: 130 },
+];
+
 
 export default function MaintenanceList() {
-
+      // レスポンシブ
+      const isMobile = useMediaQuery('(max-width:900px)');
       // Inertiaからデータを取得
       const { cars, maintenances } =usePage<PageProps>().props;
       // グローバルステートから取得
@@ -62,7 +106,7 @@ export default function MaintenanceList() {
           shop: data.shop,
           remarks: data.remarks,
           }))}
-        columns={columns}
+        columns={isMobile ? mobileColumns : columns}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
@@ -73,7 +117,7 @@ export default function MaintenanceList() {
         localeText={{
           noRowsLabel: 'データがありません', // データがない場合のメッセージを設定
         }}
-        sx={{ width:{ xs: '300px', sm: '600px', md: '100%', lg: '100%' } , minWidth:'300px'}}
+        sx={{ width:{ xs: '300px', sm: '600px', md: '100%', lg: '100%' } }}
       />
     </div>
   );
