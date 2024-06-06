@@ -29,20 +29,14 @@ class PhotoController extends Controller
         return redirect()->back();
     }
 
-    
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Photo $photo)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Photo $photo)
+    public function destroy($id)
     {
-        //
+        $photo = Photo::find($id);
+        $photo->delete();
+
+        return redirect()->back()->with('success', '削除に成功しました');
     }
 }

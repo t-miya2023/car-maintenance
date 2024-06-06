@@ -8,7 +8,8 @@ import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
 import { CreatePhotoButton } from "./photo/CreatePhotoButton";
 import { Photos } from "@/types/photos";
-import { Typography } from "@mui/material";
+import { Button, Modal, Typography } from "@mui/material";
+import { DeletePhotoButton } from "./photo/DeletePhotoButton";
 
 
 const bgColor = 'whitesmoke';
@@ -23,7 +24,20 @@ interface PageProps {
     [key: string]: any;  // インデックスシグネチャを追加
 }
 
-export default function CarSlider(){
+type Props = {
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '100%',
+    p: 4,
+};
+export default function CarModal(props:Props){
     // Inertiaからデータを取得
     const { cars, photos } =usePage<PageProps>().props;
     // グローバルステートから取得
@@ -33,31 +47,22 @@ export default function CarSlider(){
     // 対象車の画像を配列で取得
     const currentCarPhotos = photos.filter(photo => photo.car_id === selectCar);
 
-    if(!currentCar){
-        return (
-            <Box flex={1} mr={2} mb={2}>
-                <Box sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
-                    <Box 
-                        sx={{
-                        height: "auto",
-                        width: { xs: '100%', sm: '80%', md: '60%', lg: '450px' }, 
-                        mx: 'auto'
-                        }}
-                        component="img"
-                        src="/images/no_car.png"
-                        alt="車"
-                    ></Box>
-                </Box>
-            </Box>
-        )
-    }else{
+    const { isOpen, setIsOpen } = props;
+
+    // モーダルを閉じる関数
+    const handleClose = () => setIsOpen(false);
+
         return(
-            <Box flex={1} mr={2} mb={2} sx={{width:"100%"}}>
+            <Modal 
+                open={isOpen}
+                onClose={handleClose}
+                >
+                    <Box style={style}>
             <Carousel
-    
+                
                 NextIcon={<ArrowForwardIosSharpIcon/>} //矢印アイコンを別のアイコンに変更
                 PrevIcon={<ArrowBackIosSharpIcon/>} //矢印アイコンを別のアイコンに変更
-                autoPlay = {true} //自動でCarouselを動かすかどうか(true or false)
+                autoPlay = {false} //自動でCarouselを動かすかどうか(true or false)
                 //stopAutoPlayOnHover = {true} Carouselの上にマウスを置いている間、自動スクロールを継続するかどうか
                 //interval = {4000} 自動でCarouselを動かす時間の間隔(ミリ秒単位)
                 //animation = {fade} (fade or slide) Carouselのアニメーションの種類を変更
@@ -97,8 +102,9 @@ export default function CarSlider(){
                     borderRadius : 0,//0にすると四角になる．
                 },
             }}>
+
                 {currentCarPhotos.length > 0 ? currentCarPhotos.map((img,index) => (
-                    <Box key={index} sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"flex-end"} flexDirection={"column"}>
+                    <Box key={index}  sx={{mx: 'auto', height: 'auto', width: '100%',backgroundColor:bgColor,overflow:'hidden',cursor:'pointer'}} display={"flex"} alignItems={"center"} justifyContent={"flex-end"} flexDirection={"column"}>
                         <Box 
                             sx={{
                             height: "auto",
@@ -110,6 +116,8 @@ export default function CarSlider(){
                             alt={`車 ${index + 1}`}
                         ></Box>
                         <Typography>{img.comment}</Typography>
+                        <Button onClick={handleClose} >閉じる</Button>
+                        <DeletePhotoButton photoId={img.id}/>
                     </Box>
                 )):(
                     <Box sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
@@ -126,8 +134,8 @@ export default function CarSlider(){
                     </Box>
                 )}
             </Carousel>
-            <CreatePhotoButton />
-        </Box>
+            </Box>
+        </Modal>
         )
     }
-}
+

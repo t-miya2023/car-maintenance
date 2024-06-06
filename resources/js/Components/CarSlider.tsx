@@ -3,12 +3,13 @@ import Carousel from 'react-material-ui-carousel';
 import ArrowBackIosSharpIcon from '@mui/icons-material/ArrowBackIosSharp';//左矢印アイコン
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';//右矢印アイコン
 import { usePage } from "@inertiajs/react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
 import { CreatePhotoButton } from "./photo/CreatePhotoButton";
 import { Photos } from "@/types/photos";
 import { Typography } from "@mui/material";
+import CarModal from "./CarModal";
 
 
 const bgColor = 'whitesmoke';
@@ -32,6 +33,14 @@ export default function CarSlider(){
     const currentCar = cars.find(car => car.id === selectCar); 
     // 対象車の画像を配列で取得
     const currentCarPhotos = photos.filter(photo => photo.car_id === selectCar);
+    // モーダルのステート
+    const [isOpen, setIsOpen] = React.useState(false);
+    // モーダルを開ける関数
+    const handleOpen = () => {
+        console.log(isOpen);
+        setIsOpen(true);
+    };
+
 
     if(!currentCar){
         return (
@@ -98,7 +107,7 @@ export default function CarSlider(){
                 },
             }}>
                 {currentCarPhotos.length > 0 ? currentCarPhotos.map((img,index) => (
-                    <Box key={index} sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"flex-end"} flexDirection={"column"}>
+                    <Box key={index} sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden',cursor:'pointer'}} display={"flex"} alignItems={"center"} justifyContent={"flex-end"} flexDirection={"column"} onClick={handleOpen}>
                         <Box 
                             sx={{
                             height: "auto",
@@ -126,6 +135,7 @@ export default function CarSlider(){
                     </Box>
                 )}
             </Carousel>
+            <CarModal isOpen={isOpen} setIsOpen={setIsOpen} />
             <CreatePhotoButton />
         </Box>
         )

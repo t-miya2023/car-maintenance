@@ -52,7 +52,6 @@ Route::middleware('auth')->prefix('maintenance')->group(function () {
 
 Route::middleware('auth')->prefix('photo')->group(function () {
     Route::post('/store', [PhotoController::class, 'store'])->name('photo.store');
-    Route::put('/update/{id}', [PhotoController::class, 'update'])->name('photoe.update');
     Route::delete('/destroy/{id}', [PhotoController::class, 'destroy'])->name('photo.destroy');
 });
 

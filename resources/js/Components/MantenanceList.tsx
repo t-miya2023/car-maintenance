@@ -49,7 +49,7 @@ export default function MaintenanceList() {
       // console.log(maintenanceArray);
       
   return (
-    <div style={{ height: 400, width: '100%' }} >
+    <div style={{ height: 400, width: '100%'}} >
       <DataGrid
         rows={maintenanceArray.map(data => ({
           id: data.id,
@@ -73,7 +73,7 @@ export default function MaintenanceList() {
         localeText={{
           noRowsLabel: 'データがありません', // データがない場合のメッセージを設定
         }}
-        sx={{ width:'100%', minWidth:'300px'}}
+        sx={{ width:{ xs: '300px', sm: '600px', md: '100%', lg: '100%' } , minWidth:'300px'}}
       />
     </div>
   );
