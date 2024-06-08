@@ -111,9 +111,9 @@ export default function CarSlider(){
                 },
             }}>
                 {currentCarPhotos.length > 0 ? currentCarPhotos.map((img,index) => (
-                    <Box>
-                        <Box key={index} 
-                            sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden',cursor:'pointer'}} 
+                    <Box key={index}>
+                        <Box  
+                            sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden',cursor:'pointer',objectFit:'contain'}} 
                             display={"flex"} 
                             alignItems={"center"} 
                             justifyContent={"flex-end"} 

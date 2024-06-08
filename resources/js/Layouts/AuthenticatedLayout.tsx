@@ -5,6 +5,7 @@ import NavLink from '@/Components/other/NavLink';
 import ResponsiveNavLink from '@/Components/other/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
+import { Box } from '@mui/material';
 
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -17,7 +18,12 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <Box component="img"src="/images/logo.svg" alt="logo" sx={{
+                                        height: "auto",
+                                        width: '80px', 
+                                        mx: 'auto',
+                                        objectFit: 'cover',
+                                        }}></Box>
                                 </Link>
                             </div>
 

@@ -6,7 +6,6 @@ import { usePage } from "@inertiajs/react";
 import { useContext } from "react";
 import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
-import { CreatePhotoButton } from "./photo/CreatePhotoButton";
 import { Photos } from "@/types/photos";
 import { Button, Modal, Typography } from "@mui/material";
 import { DeletePhotoButton } from "./photo/DeletePhotoButton";
@@ -103,7 +102,7 @@ export default function CarModal(props:Props){
             }}>
 
                 {currentCarPhotos.map((img,index) => (
-                    <Box key={index}  sx={{mx: 'auto', height: 'auto', width: '100%',backgroundColor:bgColor,overflow:'hidden',cursor:'pointer'}} display={"flex"} alignItems={"center"} justifyContent={"flex-end"} flexDirection={"column"}>
+                    <Box key={index}  sx={{mx: 'auto', height: '90vh', width: '100%',backgroundColor:bgColor,overflow:'hidden',cursor:'pointer', objectFit:'contain'}} display={"flex"} alignItems={"center"} justifyContent={"flex-end"} flexDirection={"column"}>
                         <Box 
                             sx={{
                             height: "auto",

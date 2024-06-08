@@ -21,7 +21,7 @@ export default function CreateNewCar() {
     
 
     return (
-        <Box mb={3}>
+        <Box my={3}>
             <Button onClick={toggleDrawer(true)} variant="outlined">
                 <AddIcon />管理する車を追加する
             </Button>

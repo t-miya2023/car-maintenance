@@ -59,12 +59,18 @@ export default function AppLayout(props: Props) {
             >
               <MenuIcon />
             </IconButton>
+            <Box component="img"src="/images/logo.svg" alt="logo" sx={{
+                height: "auto",
+                width: '80px', 
+                mx: '20px',
+                objectFit: 'cover',
+              }}></Box>
             <Typography variant="h6" noWrap component="div">
               Car Maintenance
             </Typography>
           </Toolbar>
           {/* 名前 */}
-          <div className="hidden sm:flex sm:items-center sm:ms-6">
+          <div className="flex items-center sm:ms-6">
             <div className="ms-3 relative">
                 <Dropdown>
                     <Dropdown.Trigger>

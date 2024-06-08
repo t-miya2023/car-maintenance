@@ -29,7 +29,6 @@ export const Home = () => {
                 <MaintenanceAddBotton />
                 <MaintenanceList />
             </Box>
-            <Message />
         </Box>
     )
 }
