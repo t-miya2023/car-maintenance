@@ -29,7 +29,7 @@ class CarController extends Controller
         $data = $request->all();
         $data['user_id'] = auth()->id();
 
-        Car::create($data);
+        $car = Car::create($data);
 
         return redirect()->back();
     }

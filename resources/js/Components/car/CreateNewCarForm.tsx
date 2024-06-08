@@ -1,6 +1,9 @@
+import { CarContext } from "@/Providers/CarProvider";
 import { Cars } from "@/types/cars";
 import { Inertia } from "@inertiajs/inertia"
+import { usePage } from "@inertiajs/react";
 import { Box, Button, Input, TextField } from "@mui/material"
+import { useContext } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 
 type ItemName = "grade" | "model_year" | "color" | "car_model" | "vehicle_model";
@@ -51,8 +54,6 @@ export const CreateNewCarForm = () => {
                 preserveScroll: true,
         });
     }
-
-
 
     return (
         <Box component={"form"} 

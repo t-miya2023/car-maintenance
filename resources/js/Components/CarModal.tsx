@@ -27,6 +27,7 @@ interface PageProps {
 type Props = {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    currentPhotoId: number;
 }
 
 const style = {
@@ -38,16 +39,15 @@ const style = {
     p: 4,
 };
 export default function CarModal(props:Props){
+    const { isOpen, setIsOpen, currentPhotoId } = props;
     // Inertiaからデータを取得
-    const { cars, photos } =usePage<PageProps>().props;
+    const { photos } =usePage<PageProps>().props;
     // グローバルステートから取得
     const { selectCar } = useContext(CarContext);
-    //IDから対象の車種情報を取得
-    const currentCar = cars.find(car => car.id === selectCar); 
     // 対象車の画像を配列で取得
     const currentCarPhotos = photos.filter(photo => photo.car_id === selectCar);
-
-    const { isOpen, setIsOpen } = props;
+    // 選択した画像のインデックスを取得
+    const initialIndex =  currentCarPhotos.findIndex(photo => photo.id === currentPhotoId);
 
     // モーダルを閉じる関数
     const handleClose = () => setIsOpen(false);
@@ -59,7 +59,7 @@ export default function CarModal(props:Props){
                 >
                     <Box style={style}>
             <Carousel
-                
+                index={initialIndex >= 0 ? initialIndex : 0}
                 NextIcon={<ArrowForwardIosSharpIcon/>} //矢印アイコンを別のアイコンに変更
                 PrevIcon={<ArrowBackIosSharpIcon/>} //矢印アイコンを別のアイコンに変更
                 autoPlay = {false} //自動でCarouselを動かすかどうか(true or false)
@@ -73,7 +73,6 @@ export default function CarModal(props:Props){
                 //navButtonsAlwaysInvisible = {true} //常に矢印アイコンを非表示にするかどうか
                 //cycleNavigation = {true} //最後のスライドから「次へ」の矢印アイコンを押した時に最初にスライドに動かせるようにするかどうか
                 //fullHeightHover = {true} //次/前のボタンがItem要素の高さ全体をカバーし、ホバー時にボタンを表示するかどうか
-    
                 indicatorContainerProps={{
                 style: {
                     margin: "3px 0px 0px 0px"
@@ -103,7 +102,7 @@ export default function CarModal(props:Props){
                 },
             }}>
 
-                {currentCarPhotos.length > 0 ? currentCarPhotos.map((img,index) => (
+                {currentCarPhotos.map((img,index) => (
                     <Box key={index}  sx={{mx: 'auto', height: 'auto', width: '100%',backgroundColor:bgColor,overflow:'hidden',cursor:'pointer'}} display={"flex"} alignItems={"center"} justifyContent={"flex-end"} flexDirection={"column"}>
                         <Box 
                             sx={{
@@ -116,23 +115,10 @@ export default function CarModal(props:Props){
                             alt={`車 ${index + 1}`}
                         ></Box>
                         <Typography>{img.comment}</Typography>
-                        <Button onClick={handleClose} >閉じる</Button>
+                        <Button onClick={handleClose}>閉じる</Button>
                         <DeletePhotoButton photoId={img.id}/>
                     </Box>
-                )):(
-                    <Box sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
-                        <Box 
-                            sx={{
-                            height: "auto",
-                            width: { xs: '100%', sm: '80%', md: '60%', lg: '450px' }, 
-                            mx: 'auto'
-                            }}
-                            component="img"
-                            src="/images/no_images.png"
-                            alt="車"
-                        ></Box>
-                    </Box>
-                )}
+                ))}
             </Carousel>
             </Box>
         </Modal>

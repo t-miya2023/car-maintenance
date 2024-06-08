@@ -7,6 +7,7 @@ import { Maintenaces } from "@/types/maintenaces";
 import { MaintenanceEditBotton } from "./maintenance/MaintenanceEditButton";
 import { MaintenanceDeleteButton } from "./maintenance/MaintenanceDeleteButton";
 import { useMediaQuery } from "@mui/material";
+import { japaneseLocaleText } from "@/theme/japaneseText";
 
 
 interface PageProps {
@@ -14,6 +15,9 @@ interface PageProps {
   maintenances: Maintenaces[];
   [key: string]: any;  // インデックスシグネチャを追加
 }
+
+
+
 // PC用
 const columns: GridColDef[] = [
   { field: 'maintenance_details', headerName: '点検内容', width: 200 },
@@ -114,9 +118,7 @@ export default function MaintenanceList() {
         }}
         pageSizeOptions={[5, 10]}
         // checkboxSelection
-        localeText={{
-          noRowsLabel: 'データがありません', // データがない場合のメッセージを設定
-        }}
+        localeText={japaneseLocaleText}
         sx={{ width:{ xs: '300px', sm: '600px', md: '100%', lg: '100%' } }}
       />
     </div>

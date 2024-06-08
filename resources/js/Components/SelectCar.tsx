@@ -38,9 +38,9 @@ export const SelectCar = () => {
             setSelectCar(defalutCarId);
             setValue('select',defalutCarId);
             storeCarId(defalutCarId);
-            console.log("ストレージ"+storedCarId);
-            console.log("車種は存在するか？"+existingCar);
-            console.log("選択中の車は"+defalutCarId);
+            // console.log("ストレージ"+storedCarId);
+            // console.log("車種は存在するか？"+existingCar);
+            // console.log("選択中の車は"+defalutCarId);
         }else{
             setSelectCar(null);  // 初期値を空文字列に設定して、常に制御された状態を保持
             setValue('select', '選択可能な車種がありません');// 車種未登録の場合メッセージを表示

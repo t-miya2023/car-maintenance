@@ -49,7 +49,23 @@ export const Graph = (props:Props) => {
     const options = {
       maintainAspectRatio: false,
       responsive: true,
-      
+      plugins: {
+        tooltip: {
+            callbacks: {
+              // 合計金額の後ろに円を表示させる
+                label: function(context) {
+                    let label = context.label || '';
+                    if (label) {
+                        label += ': ';
+                    }
+                    if (context.raw !== null) {
+                        label += (context.raw).toLocaleString('ja-JP') + '円';
+                    }
+                    return label;
+                }
+            }
+        }
+      }
     }
 
     const data: ChartData<"pie"> = {

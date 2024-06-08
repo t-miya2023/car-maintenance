@@ -35,17 +35,22 @@ export default function CarSlider(){
     const currentCarPhotos = photos.filter(photo => photo.car_id === selectCar);
     // モーダルのステート
     const [isOpen, setIsOpen] = React.useState(false);
+    // 選んだ写真のステート
+    const [isClick, setIsClick] = React.useState(0);
     // モーダルを開ける関数
-    const handleOpen = () => {
-        console.log(isOpen);
+    const handleOpen = (id:number) => {
         setIsOpen(true);
+        setIsClick(id);
     };
 
 
     if(!currentCar){
         return (
             <Box flex={1} mr={2} mb={2}>
-                <Box sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
+                <Box sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} 
+                display={"flex"} 
+                alignItems={"center"} 
+                justifyContent={"center"}>
                     <Box 
                         sx={{
                         height: "auto",
@@ -63,7 +68,6 @@ export default function CarSlider(){
         return(
             <Box flex={1} mr={2} mb={2} sx={{width:"100%"}}>
             <Carousel
-    
                 NextIcon={<ArrowForwardIosSharpIcon/>} //矢印アイコンを別のアイコンに変更
                 PrevIcon={<ArrowBackIosSharpIcon/>} //矢印アイコンを別のアイコンに変更
                 autoPlay = {true} //自動でCarouselを動かすかどうか(true or false)
@@ -107,18 +111,27 @@ export default function CarSlider(){
                 },
             }}>
                 {currentCarPhotos.length > 0 ? currentCarPhotos.map((img,index) => (
-                    <Box key={index} sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden',cursor:'pointer'}} display={"flex"} alignItems={"center"} justifyContent={"flex-end"} flexDirection={"column"} onClick={handleOpen}>
-                        <Box 
-                            sx={{
-                            height: "auto",
-                            width: "100%", 
-                            mx: 'auto'
-                            }}
-                            component="img"
-                            src={`storage/car_img/${img.path}`}
-                            alt={`車 ${index + 1}`}
-                        ></Box>
-                        <Typography>{img.comment}</Typography>
+                    <Box>
+                        <Box key={index} 
+                            sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden',cursor:'pointer'}} 
+                            display={"flex"} 
+                            alignItems={"center"} 
+                            justifyContent={"flex-end"} 
+                            flexDirection={"column"} 
+                            onClick={ () =>handleOpen(img.id)}>
+                            <Box 
+                                sx={{
+                                height: "auto",
+                                width: "100%", 
+                                mx: 'auto'
+                                }}
+                                component="img"
+                                src={`storage/car_img/${img.path}`}
+                                alt={`車 ${index + 1}`}
+                            ></Box>
+                            <Typography>{img.comment}</Typography>
+                        </Box>
+                        <CarModal isOpen={isOpen} setIsOpen={setIsOpen} currentPhotoId={isClick} />
                     </Box>
                 )):(
                     <Box sx={{mx: 'auto', height: 268, width: 400,backgroundColor:bgColor,overflow:'hidden'}} display={"flex"} alignItems={"center"} justifyContent={"center"}>
@@ -135,7 +148,6 @@ export default function CarSlider(){
                     </Box>
                 )}
             </Carousel>
-            <CarModal isOpen={isOpen} setIsOpen={setIsOpen} />
             <CreatePhotoButton />
         </Box>
         )
