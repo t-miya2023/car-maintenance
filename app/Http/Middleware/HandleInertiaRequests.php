@@ -66,6 +66,10 @@ class HandleInertiaRequests extends Middleware
             'cars' => $cars,
             'maintenances' => $maintenances,
             'photos' => $photos,
+            'flash' => [
+                'success' => fn() => $request->session()->get('success'),
+                'error' => session('error'),
+            ],
         ];
         
     }

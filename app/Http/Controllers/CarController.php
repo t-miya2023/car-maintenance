@@ -62,6 +62,9 @@ class CarController extends Controller
         $car = Car::find($id);
         $car->delete();
 
-        return redirect()->back()->with('success', '削除に成功しました');
+        session()->flash('success', '削除に成功しました');
+        Log::info('Session Data', session()->all());
+        
+        return redirect()->back();
     }
 }

@@ -20,7 +20,7 @@ export const MaintenanceAddBotton = () => {
     );
 
     return (
-        <Box textAlign={"right"} mb={2}>
+        <Box textAlign={"left"} mb={2}>
             <Button onClick={toggleDrawer(true)} variant="outlined" disabled={!selectCar}>
                 <AddIcon />メンテナンスの追加
             </Button>
