@@ -53,7 +53,7 @@ export const Graph = (props:Props) => {
         tooltip: {
             callbacks: {
               // 合計金額の後ろに円を表示させる
-                label: function(context) {
+                label: function(context:any) {
                     let label = context.label || '';
                     if (label) {
                         label += ': ';

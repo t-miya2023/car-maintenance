@@ -27,7 +27,7 @@ export const CreatePhotoForm = () => {
     // グローバルステートから取得
     const { selectCar } = useContext(CarContext);
     //selectCarから選択中の車のIDを取得
-    const currentCarId = cars.find(car => car.id === selectCar)?.id; 
+    const currentCarId = cars.find(car => car.id === selectCar)?.id as number; 
     
     const { control, handleSubmit  } = useForm({
         defaultValues:{
@@ -70,7 +70,7 @@ export const CreatePhotoForm = () => {
                             <Input
                                 type="file"
                                 sx={{ marginBottom: 4 ,width: "100%"}}
-                                onChange={(e) => onChange(e.target.files)}
+                                onChange={(e) => onChange((e.target as HTMLInputElement).files)}
                             />
                             
                         </>
