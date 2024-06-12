@@ -17,5 +17,5 @@
         "typeRoots": ["./types", "./node_modules/@types"],
         "types": []
     },
-    "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts"]
+    "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts", "types/d3-scale.d.ts", "types/d3-shape.d.ts"]
 }
