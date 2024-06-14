@@ -13,6 +13,7 @@ import { Cars } from '@/types/cars';
 import { Maintenaces } from '@/types/maintenaces';
 import { usePage } from '@inertiajs/react';
 import { CarContext } from '@/Providers/CarProvider';
+import { Box, Typography } from '@mui/material';
 
 ChartJS.register(
   CategoryScale,
@@ -33,14 +34,38 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'right' as const,
+      display: false, // ラベルを非表示にする
     },
     title: {
       display: true,
       text: '月別点検費',
     },
+    tooltip: {
+      callbacks: {
+        label: function(context: any) {
+          let label = context.dataset.label || '';
+          if (label) {
+            label += ': ';
+          }
+          if (context.parsed.x !== null) {
+            label += `${context.parsed.x.toLocaleString()}円`;
+          }
+          return label;
+        }
+      }
+    }
   },
+  scales: {
+    x: {
+      ticks: {
+        callback: function(value: string | number) {
+          return `${Number(value).toLocaleString()}円`;
+        }
+      }
+    }
+  }
 };
+
 
 
 
@@ -100,18 +125,36 @@ export default function HorizontalBarChart (props:Props) {
         const isAllZero = monthSum.every(item => item.value === 0);
 
         const labels = ['1月', '2月', '3月', '4月', '5月', '6月', '7月','8月', '9月', '10月', '11月', '12月'];
-
+        console.log(monthSum);
     const data = {
         labels,
         datasets: [
             {
-            label: 'Dataset 1',
-            data: 1,
+            data: monthSum.map(item => item.value),
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
         ],
     };
 
-  return <Bar options={options} data={data} />;
+  return (
+    <>
+        <Box
+        sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexGrow: 1,
+            height: '400px',
+        }}>
+            {!currentCarId ? (
+            <Typography>車が登録されていません。</Typography>
+            ) : isAllZero ? (
+            <Typography>データがありません。</Typography>
+            ) : (
+                <Bar options={options} data={data} />
+            )}
+        </Box>
+    </>
+    );
 }
