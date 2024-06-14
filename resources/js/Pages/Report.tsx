@@ -1,10 +1,10 @@
-import HorizontalBars from "@/Components/HorizontalBars"
 import { Graph } from "@/Components/Graph"
 import { SelectCar } from "@/Components/SelectCar"
 import { YearSelector } from "@/Components/YearSelector"
 import { Grid, Paper } from "@mui/material"
 import { useState } from "react"
 import { Comment } from "@/Components/Comment"
+import HorizontalBarChart from "@/Components/HorizonalBarChart"
 
 export const Report = () => {
     const paperStyle = {
@@ -37,7 +37,7 @@ export const Report = () => {
             </Grid>
             <Grid item xs={12} md={6}>
                 <Paper sx={paperStyle}>
-                    <HorizontalBars  currentYear={currentYear} />
+                    <HorizontalBarChart  currentYear={currentYear} />
                 </Paper>
             </Grid>
         </Grid>
